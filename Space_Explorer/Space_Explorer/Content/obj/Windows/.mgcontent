@@ -4,9 +4,9 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Chikan/Documents/GitHub/Space_Explorer/Space_Explorer/Content/Ship.png</File>
-    <File>C:/Users/Chikan/Documents/GitHub/Space_Explorer/Space_Explorer/Content/Circle500.png</File>
-    <File>C:/Users/Chikan/Documents/GitHub/Space_Explorer/Space_Explorer/Content/Debug.spritefont</File>
-    <File>C:/Users/Chikan/Documents/GitHub/Space_Explorer/Space_Explorer/Content/Transparent Vignette.png</File>
+    <File>E:/Frankie/Documents/GitHub/SpaceExplorer/Space_Explorer/Space_Explorer/Content/Ship.png</File>
+    <File>E:/Frankie/Documents/GitHub/SpaceExplorer/Space_Explorer/Space_Explorer/Content/Circle500.png</File>
+    <File>E:/Frankie/Documents/GitHub/SpaceExplorer/Space_Explorer/Space_Explorer/Content/Debug.spritefont</File>
+    <File>E:/Frankie/Documents/GitHub/SpaceExplorer/Space_Explorer/Space_Explorer/Content/Transparent Vignette.png</File>
   </SourceFiles>
 </SourceFileCollection>

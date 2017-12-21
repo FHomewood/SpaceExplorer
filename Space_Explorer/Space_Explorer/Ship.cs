@@ -11,17 +11,22 @@ namespace Space_Explorer
 {
     class Ship
     {
-        Vector2 loc, vel;
+        public Vector2 loc, vel;
+        Planet closestBody;
         float rotation;
         float health = 100;
         float Hittimer;
+        int screenW, screenH;
 
-        public Ship(Vector2 loc)
+        public Ship(Vector2 loc, int screenW, int screenH)
         {
             this.loc = loc;
+            this.screenW = screenW;
+            this.screenH = screenH;
+            this.closestBody = new Planet(5000 * Vector2.One, 1, 0, Color.AliceBlue);
         }
 
-        public void Update(KeyboardState oldK, KeyboardState newK, MouseState oldM, MouseState newM, List<Particle> particleList)
+        public void Update(Camera cam, KeyboardState oldK, KeyboardState newK, MouseState oldM, MouseState newM, List<Particle> particleList)
         {
             Random rand = new Random();
             if (newK.IsKeyDown(Keys.W))
@@ -43,28 +48,34 @@ namespace Space_Explorer
             if (newK.IsKeyDown(Keys.D)) rotation += 0.05f;
 
             loc += vel;
+            cam.X = loc.X;
+            cam.Y = loc.Y;
+            cam.Zoom = screenH/2/(closestBody.GetLoc() - loc).Length();
+            cam.Rotation = 3*MathHelper.PiOver2 - (float)Math.Atan2((loc - closestBody.GetLoc()).Y, (loc - closestBody.GetLoc()).X);
             if (health < 0) { health = 0; }
             if (Hittimer > 0) { Hittimer--; }
         }
 
-        public void PlanetInteraction(float frametime, Planet planet)
+        public void PlanetInteraction(Camera cam, float frametime, Planet planet)
         {
             Vector2 difference = (planet.GetLoc() - loc);
+            if (difference.Length() < (closestBody.GetLoc() - loc).Length()) closestBody = planet;
             vel += difference * planet.GetMass() * (float)Math.Pow(difference.Length(), -3);
-            if (difference.Length() < planet.GetRadius() + 10f)
+            if (difference.Length() < planet.GetRadius() + 1f)
             {
                 Vector2 parallel      = difference / difference.Length();
                 Vector2 perpendicular = Vector2.Transform(parallel, Matrix.CreateRotationZ(MathHelper.PiOver2));
                 vel =perpendicular * Vector2.Dot(perpendicular, vel) - parallel * Vector2.Dot(parallel, vel);
                 if (vel.Length() > 0.5f) { health -= vel.Length() * 10; Hittimer = 100; }
+                if (vel.Length() < 0.001f) { vel = Vector2.Zero; }
                 vel /= 1.5f;
-                loc += (difference.Length() - planet.GetRadius() - 10f) * difference / difference.Length();
+                loc += (difference.Length() - planet.GetRadius() - 1f) * difference / difference.Length();
             }
         }
 
-        public void CamDraw(SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
+        public void CamDraw(Camera cam, SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {
-            sB.Draw(textures[0], loc, null, Color.White, rotation, new Vector2(textures[0].Width / 2, textures[0].Height / 2), 0.05f, SpriteEffects.None, 0f);
+            sB.Draw(textures[0], loc, null, Color.White, rotation, new Vector2(textures[0].Width / 2, textures[0].Height / 2), 0.05f/cam.Zoom, SpriteEffects.None, 0f);
             sB.DrawString(fonts[0], health.ToString(),loc - 30* Vector2.UnitY, Color.Red, 0f, fonts[0].MeasureString(health.ToString())/2, 1f,SpriteEffects.None,1f);
         }
         public void StaticDraw(SpriteBatch sB, GraphicsDeviceManager graphics, Texture2D[] textures, SpriteFont[] fonts)

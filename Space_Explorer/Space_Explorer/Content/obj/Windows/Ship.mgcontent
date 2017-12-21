@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Chikan/Documents/GitHub/Space_Explorer/Space_Explorer/Content/Ship.png</SourceFile>
-  <SourceTime>2017-12-08T22:25:05.8833357+00:00</SourceTime>
-  <DestFile>C:/Users/Chikan/Documents/GitHub/Space_Explorer/Space_Explorer/Content/bin/Windows/Ship.xnb</DestFile>
-  <DestTime>2017-12-09T21:15:19.0593877+00:00</DestTime>
+  <SourceFile>E:/Frankie/Documents/GitHub/SpaceExplorer/Space_Explorer/Space_Explorer/Content/Ship.png</SourceFile>
+  <SourceTime>2017-12-08T22:25:06+00:00</SourceTime>
+  <DestFile>E:/Frankie/Documents/GitHub/SpaceExplorer/Space_Explorer/Space_Explorer/Content/bin/Windows/Ship.xnb</DestFile>
+  <DestTime>2017-12-21T14:15:02.1784442+00:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

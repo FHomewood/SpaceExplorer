@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Asteroid.cs" />
     <Compile Include="AsteroidBelt.cs" />
+    <Compile Include="Camera.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Particle.cs" />
     <Compile Include="Planet.cs" />

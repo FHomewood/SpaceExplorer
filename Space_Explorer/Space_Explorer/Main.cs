@@ -14,6 +14,7 @@ namespace Space_Explorer
         MouseState oldM, newM;
         Texture2D texShip, texCircle, texVignette;
         SpriteFont fontDebug;
+        Camera cam;
         int screenW, screenH;
         float elapsedTime;
 
@@ -34,9 +35,10 @@ namespace Space_Explorer
         protected override void Initialize()
         {
             base.Initialize();
+            cam = new Camera(GraphicsDevice.Viewport);
             screenH = graphics.PreferredBackBufferHeight;
             screenW = graphics.PreferredBackBufferWidth;
-            shipList.Add(new Ship(new Vector2(screenW / 2, screenH / 2)));
+            shipList.Add(new Ship(new Vector2(screenW / 2, screenH / 2),screenW,screenH));
             oldK = Keyboard.GetState();
             oldM = Mouse.GetState();
 
@@ -58,7 +60,7 @@ namespace Space_Explorer
             //Define Map
             //Planets
             planetList.Add(new Planet(new Vector2(400, 360), 20, 20, Color.ForestGreen));
-            planetList.Add(new Planet(new Vector2(400, 360), 4, 4, Color.Navy, 100, 27, 0));
+            //planetList.Add(new Planet(new Vector2(400, 360), 4, 4, Color.Navy, 100, 27, 0));
 
             //Asteroid Belts
             beltList.Add(new AsteroidBelt(new Vector2(400, 360), 150, 200));
@@ -84,15 +86,14 @@ namespace Space_Explorer
             foreach (Particle particle in particleList) particle.Update();
             foreach (Ship ship in shipList)
             {
-                foreach (Planet planet in planetList) ship.PlanetInteraction((float)gameTime.ElapsedGameTime.TotalSeconds,planet);
-                ship.Update(oldK, newK, oldM, newM, particleList);
+                foreach (Planet planet in planetList) ship.PlanetInteraction(cam,(float)gameTime.ElapsedGameTime.TotalSeconds,planet);
+                ship.Update(cam,oldK, newK, oldM, newM, particleList);
             }
             foreach (Planet planet in planetList) planet.Update(elapsedTime);
             foreach (AsteroidBelt belt in beltList) belt.Update();
-            
+            cam.Update();
             oldK = newK;
             oldM = newM;
-
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
             base.Update(gameTime);
         }
@@ -100,19 +101,21 @@ namespace Space_Explorer
         {
             GraphicsDevice.Clear(Color.TransparentBlack);
 
-            sB.Begin();
+            sB.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.Transform);
             foreach (AsteroidBelt belt in beltList) belt.UnderDraw(sB, new Texture2D[] { texCircle }, new SpriteFont[] { fontDebug });
             foreach (Particle particle in particleList) particle.Draw(sB, new Texture2D[] { texCircle }, new SpriteFont[] { });
             foreach (Ship ship in shipList)
-            {
-                ship.CamDraw(sB, new Texture2D[] { texShip, texVignette }, new SpriteFont[] { fontDebug });
-                ship.StaticDraw(sB, graphics, new Texture2D[] { texVignette }, new SpriteFont[] { });
-            }
-
+                ship.CamDraw(cam, sB, new Texture2D[] { texShip, texVignette }, new SpriteFont[] { fontDebug });
             foreach (Planet planet in planetList) planet.Draw(sB, new Texture2D[] { texCircle }, new SpriteFont[] { });
             foreach (AsteroidBelt belt in beltList) belt.OverDraw(sB, new Texture2D[] { texCircle }, new SpriteFont[] { fontDebug });
-            sB.DrawString(fontDebug, "Elapsed Time: " + elapsedTime.ToString() + "s", Vector2.Zero, Color.White);
             sB.End();
+
+
+            sB.Begin();
+            foreach (Ship ship in shipList)
+                ship.StaticDraw(sB, graphics, new Texture2D[] { texVignette }, new SpriteFont[] { });
+            sB.DrawString(fontDebug, "Elapsed Time: " + elapsedTime.ToString() + "s", Vector2.Zero, Color.White);
+                sB.End();
 
             base.Draw(gameTime);
         }

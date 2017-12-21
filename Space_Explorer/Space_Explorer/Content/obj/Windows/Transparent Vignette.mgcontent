@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Chikan/Documents/GitHub/Space_Explorer/Space_Explorer/Content/Transparent Vignette.png</SourceFile>
-  <SourceTime>2017-12-14T20:25:52.4399207+00:00</SourceTime>
-  <DestFile>C:/Users/Chikan/Documents/GitHub/Space_Explorer/Space_Explorer/Content/bin/Windows/Transparent Vignette.xnb</DestFile>
-  <DestTime>2017-12-14T20:27:36.2264492+00:00</DestTime>
+  <SourceFile>E:/Frankie/Documents/GitHub/SpaceExplorer/Space_Explorer/Space_Explorer/Content/Transparent Vignette.png</SourceFile>
+  <SourceTime>2017-12-14T20:25:54+00:00</SourceTime>
+  <DestFile>E:/Frankie/Documents/GitHub/SpaceExplorer/Space_Explorer/Space_Explorer/Content/bin/Windows/Transparent Vignette.xnb</DestFile>
+  <DestTime>2017-12-21T14:15:02.771542+00:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

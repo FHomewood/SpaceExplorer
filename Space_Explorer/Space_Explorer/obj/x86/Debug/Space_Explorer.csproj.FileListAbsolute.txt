@@ -26,3 +26,30 @@ C:\Users\Chikan\Documents\GitHub\Space_Explorer\Space_Explorer\obj\x86\Debug\Spa
 C:\Users\Chikan\Documents\GitHub\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\Circle500.xnb
 C:\Users\Chikan\Documents\GitHub\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\Debug.xnb
 C:\Users\Chikan\Documents\GitHub\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\Transparent Vignette.xnb
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\Circle500.xnb
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\Debug.xnb
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\Ship.xnb
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\Transparent Vignette.xnb
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Space_Explorer.exe
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Space_Explorer.pdb
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\MonoGame.Framework.dll
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.dll
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.XInput.dll
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.Direct3D9.dll
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\MonoGame.Framework.xml
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.xml
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.XInput.xml
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\obj\x86\Debug\Space_Explorer.csprojResolveAssemblyReference.cache
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\obj\x86\Debug\Space_Explorer.exe
+E:\Frankie\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\obj\x86\Debug\Space_Explorer.pdb
