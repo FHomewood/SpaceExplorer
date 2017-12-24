@@ -59,12 +59,11 @@ namespace Space_Explorer
 
             //Define Map
             //Planets
-            planetList.Add(new Planet(new Vector2(400, 360), 20, 5, Color.ForestGreen));
-            planetList.Add(new Planet(new Vector2(400, 360), 4, 5, Color.Navy, 1000, 200, 0));
+            planetList.Add(new Planet(new Vector2(400, 360), 50, 5, Color.ForestGreen)); //Earth
+            planetList.Add(new Planet(new Vector2(400, 360), 20, 5, Color.Gray, 1000, 200, 0)); //Moon
 
             //Asteroid Belts
             beltList.Add(new AsteroidBelt(new Vector2(400, 360), 2000, 3000));
-            beltList.Add(new AsteroidBelt(new Vector2(800, 360), 0, 100));
         }
         protected override void LoadContent()
         {
