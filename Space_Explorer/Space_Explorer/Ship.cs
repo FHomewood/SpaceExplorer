@@ -11,11 +11,10 @@ namespace Space_Explorer
 {
     class Ship
     {
-        public Vector2 loc, vel;
+        public Vector2 loc, vel, camFocusLoc;
         Planet closestBody;
-        float rotation;
-        float health = 100;
-        float Hittimer;
+        AsteroidBelt currentBelt;
+        float rotation, health = 100, Hittimer, camFocusZoom,camFocusRot;
         int screenW, screenH;
 
         public Ship(Vector2 loc, int screenW, int screenH)
@@ -48,10 +47,26 @@ namespace Space_Explorer
             if (newK.IsKeyDown(Keys.D)) rotation += 0.05f;
 
             loc += vel;
-            cam.X = loc.X;
-            cam.Y = loc.Y;
-            cam.Zoom = screenH/2/(closestBody.GetLoc() - loc).Length();
-            cam.Rotation = 3*MathHelper.PiOver2 - (float)Math.Atan2((loc - closestBody.GetLoc()).Y, (loc - closestBody.GetLoc()).X);
+
+
+            camFocusLoc = loc;
+            if (currentBelt != null)
+            {
+                camFocusZoom = screenH / 1000f;
+                camFocusRot = -rotation;
+            }
+            else
+            {
+                camFocusZoom = screenH / 2 / (closestBody.GetLoc() - loc).Length();
+                camFocusRot = -MathHelper.PiOver2 - (float)Math.Atan2((loc - closestBody.GetLoc()).Y, (loc - closestBody.GetLoc()).X);
+            }
+
+            cam.X += (camFocusLoc.X - cam.X) / 10;
+            cam.Y += (camFocusLoc.Y - cam.Y) / 10;
+            cam.Zoom += (camFocusZoom - cam.Zoom) / 10;
+            cam.Rotation += (camFocusRot - cam.Rotation) / 10;
+
+            currentBelt = null;
             if (health < 0) { health = 0; }
             if (Hittimer > 0) { Hittimer--; }
         }
@@ -70,6 +85,14 @@ namespace Space_Explorer
                 if (vel.Length() < 0.001f) { vel = Vector2.Zero; }
                 vel /= 1.5f;
                 loc += (difference.Length() - planet.GetRadius() - 1f) * difference / difference.Length();
+            }
+        }
+
+        public void BeltInteraction(Camera cam, AsteroidBelt belt)
+        {
+            if ((loc-belt.loc).Length()>belt.inRad && (loc - belt.loc).Length() < belt.outRad)
+            {
+                currentBelt = belt;
             }
         }
 

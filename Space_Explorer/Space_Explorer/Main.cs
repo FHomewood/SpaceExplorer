@@ -85,7 +85,8 @@ namespace Space_Explorer
             foreach (Particle particle in particleList) particle.Update();
             foreach (Ship ship in shipList)
             {
-                foreach (Planet planet in planetList) ship.PlanetInteraction(cam,(float)gameTime.ElapsedGameTime.TotalSeconds,planet);
+                foreach (Planet planet in planetList) ship.PlanetInteraction(cam, (float)gameTime.ElapsedGameTime.TotalSeconds, planet);
+                foreach (AsteroidBelt belt in beltList) ship.BeltInteraction(cam, belt);
                 ship.Update(cam,oldK, newK, oldM, newM, particleList);
             }
             foreach (Planet planet in planetList) planet.Update(elapsedTime);
