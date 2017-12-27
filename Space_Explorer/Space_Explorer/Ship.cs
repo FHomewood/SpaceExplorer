@@ -61,10 +61,10 @@ namespace Space_Explorer
                 camFocusRot = -MathHelper.PiOver2 - (float)Math.Atan2((loc - closestBody.GetLoc()).Y, (loc - closestBody.GetLoc()).X);
             }
 
-            cam.X += (camFocusLoc.X - cam.X) / 10;
-            cam.Y += (camFocusLoc.Y - cam.Y) / 10;
-            cam.Zoom += (camFocusZoom - cam.Zoom) / 10;
-            cam.Rotation += (camFocusRot - cam.Rotation) / 10;
+            cam.X += (camFocusLoc.X - cam.X) / 20;
+            cam.Y += (camFocusLoc.Y - cam.Y) / 20;
+            cam.Zoom += (camFocusZoom - cam.Zoom) / 20;
+            cam.Rotation += (camFocusRot - cam.Rotation) / 20;
 
             currentBelt = null;
             if (health < 0) { health = 0; }
@@ -76,11 +76,11 @@ namespace Space_Explorer
             Vector2 difference = (planet.GetLoc() - loc);
             if (difference.Length() < (closestBody.GetLoc() - loc).Length()) closestBody = planet;
             vel += difference * planet.GetMass() * (float)Math.Pow(difference.Length(), -3);
-            if (difference.Length() < planet.GetRadius() + 1f)
+            if (difference.Length() < planet.GetRadius() + 0.05f/cam.Zoom)
             {
                 Vector2 parallel      = difference / difference.Length();
-                Vector2 perpendicular = Vector2.Transform(parallel, Matrix.CreateRotationZ(MathHelper.PiOver2));
-                vel =perpendicular * Vector2.Dot(perpendicular, vel) - parallel * Vector2.Dot(parallel, vel);
+                Vector2 perpendicular = new Vector2(parallel.Y, parallel.X);
+                vel = perpendicular * Vector2.Dot(perpendicular, vel) - parallel * Vector2.Dot(parallel, vel);
                 if (vel.Length() > 0.5f) { health -= vel.Length() * 10; Hittimer = 100; }
                 if (vel.Length() < 0.001f) { vel = Vector2.Zero; }
                 vel /= 1.5f;
@@ -99,7 +99,7 @@ namespace Space_Explorer
         public void CamDraw(Camera cam, SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {
             sB.Draw(textures[0], loc, null, Color.White, rotation, new Vector2(textures[0].Width / 2, textures[0].Height / 2), 0.05f/cam.Zoom, SpriteEffects.None, 0f);
-            sB.DrawString(fonts[0], health.ToString(),loc - 30* Vector2.UnitY, Color.Red, 0f, fonts[0].MeasureString(health.ToString())/2, 1f,SpriteEffects.None,1f);
+            sB.DrawString(fonts[0], health.ToString(), loc - Vector2.Transform(30 * Vector2.UnitY, Matrix.CreateRotationZ(-cam.Rotation)), Color.Red, -cam.Rotation, fonts[0].MeasureString(health.ToString())/2, 1f,SpriteEffects.None,1f);
         }
         public void StaticDraw(SpriteBatch sB, GraphicsDeviceManager graphics, Texture2D[] textures, SpriteFont[] fonts)
         {
