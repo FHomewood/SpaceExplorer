@@ -12,7 +12,7 @@ namespace Space_Explorer
         SpriteBatch sB;
         KeyboardState oldK, newK;
         MouseState oldM, newM;
-        Texture2D texShip, texCircle, texVignette;
+        Texture2D texShip, texCircle, texMarkedCircle, texVignette;
         SpriteFont fontDebug;
         Camera cam;
         int screenW, screenH;
@@ -70,6 +70,7 @@ namespace Space_Explorer
             sB = new SpriteBatch(GraphicsDevice);
             texShip = Content.Load<Texture2D>("Ship");
             texCircle = Content.Load<Texture2D>("Circle500");
+            texMarkedCircle = Content.Load<Texture2D>("MarkedCircle500");
             texVignette = Content.Load<Texture2D>("Transparent Vignette");
             fontDebug = Content.Load<SpriteFont>("Debug");
         }
@@ -104,9 +105,8 @@ namespace Space_Explorer
             sB.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.Transform);
             foreach (AsteroidBelt belt in beltList) belt.UnderDraw(sB, new Texture2D[] { texCircle }, new SpriteFont[] { fontDebug });
             foreach (Particle particle in particleList) particle.Draw(sB, new Texture2D[] { texCircle }, new SpriteFont[] { });
-            foreach (Ship ship in shipList)
-                ship.CamDraw(cam, sB, new Texture2D[] { texShip, texVignette }, new SpriteFont[] { fontDebug });
-            foreach (Planet planet in planetList) planet.Draw(sB, new Texture2D[] { texCircle }, new SpriteFont[] { });
+            foreach (Ship ship in shipList) ship.CamDraw(cam, sB, new Texture2D[] { texShip, texVignette }, new SpriteFont[] { fontDebug });
+            foreach (Planet planet in planetList) planet.Draw(sB, new Texture2D[] { texMarkedCircle }, new SpriteFont[] { });
             foreach (AsteroidBelt belt in beltList) belt.OverDraw(sB, new Texture2D[] { texCircle }, new SpriteFont[] { fontDebug });
             sB.End();
 

@@ -76,15 +76,15 @@ namespace Space_Explorer
             Vector2 difference = (planet.GetLoc() - loc);
             if (difference.Length() < (closestBody.GetLoc() - loc).Length()) closestBody = planet;
             vel += difference * planet.GetMass() * (float)Math.Pow(difference.Length(), -3);
-            if (difference.Length() < planet.GetRadius() + 0.05f/cam.Zoom)
+            if (difference.Length() < planet.GetRadius() + 10f/cam.Zoom)
             {
                 Vector2 parallel      = difference / difference.Length();
-                Vector2 perpendicular = new Vector2(parallel.Y, parallel.X);
+                Vector2 perpendicular = Vector2.Transform(parallel, Matrix.CreateRotationZ(-MathHelper.PiOver2));
                 vel = perpendicular * Vector2.Dot(perpendicular, vel) - parallel * Vector2.Dot(parallel, vel);
                 if (vel.Length() > 0.5f) { health -= vel.Length() * 10; Hittimer = 100; }
-                if (vel.Length() < 0.001f) { vel = Vector2.Zero; }
+                if (vel.Length() < 0.01f) { vel = Vector2.Zero; }
                 vel /= 1.5f;
-                loc += (difference.Length() - planet.GetRadius() - 1f) * difference / difference.Length();
+                loc += (difference.Length() - planet.GetRadius() - 10f / cam.Zoom) * difference / difference.Length();
             }
         }
 

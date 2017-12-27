@@ -81,3 +81,4 @@ C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\obj
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\obj\x86\Debug\Space_Explorer.csproj.CoreCompileInputs.cache
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\obj\x86\Debug\Space_Explorer.exe
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\obj\x86\Debug\Space_Explorer.pdb
+C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\MarkedCircle500.xnb
