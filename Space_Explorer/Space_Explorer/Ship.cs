@@ -52,7 +52,7 @@ namespace Space_Explorer
             camFocusLoc = loc;
             if (currentBelt != null)
             {
-                camFocusZoom = screenH / 500f;
+                camFocusZoom = screenH / 20000f;
                 camFocusRot = -rotation;
             }
             else
@@ -64,9 +64,7 @@ namespace Space_Explorer
             cam.X += (camFocusLoc.X - cam.X) / 20;
             cam.Y += (camFocusLoc.Y - cam.Y) / 20;
             cam.Zoom += (camFocusZoom - cam.Zoom) / 20;
-            float RotDifference = ((camFocusRot - cam.Rotation) % MathHelper.PiOver2);
-            //if (RotDifference >  MathHelper.Pi) RotDifference -= MathHelper.Pi;
-            //if (RotDifference < -MathHelper.Pi) RotDifference += MathHelper.Pi;
+            float RotDifference = ((camFocusRot - cam.Rotation) % MathHelper.TwoPi);
             cam.Rotation += RotDifference / 20;
             if (health < 0) { health = 0; }
             if (Hittimer > 0) { Hittimer--; }

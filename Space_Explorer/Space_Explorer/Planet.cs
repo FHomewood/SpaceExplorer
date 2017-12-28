@@ -7,24 +7,25 @@ namespace Space_Explorer
     class Planet
     {
         Vector2 loc, orbloc;
-        float rad, mass, tPeriod, orbrad, phase;
+        float rad, mass;
+        float[] tPeriod, orbrad, phase;
         Color col;
-        
+
 
         public Planet(Vector2 loc, float rad, float mass, Color col)
         {
-            this.orbloc  = loc;
+            this.orbloc = loc;
             this.loc = loc;
             this.rad = rad;
             this.mass = mass;
             this.col = col;
-            this.tPeriod = 1;
-            this.orbrad = 0;
-            this.phase = 0;
+            this.tPeriod = new float[] { 1 };
+            this.orbrad = new float[] { 0 };
+            this.phase = new float[] { 0 };
         }
-        public Planet(Vector2 orbloc, float rad, float mass, Color col, float orbrad, float tPeriod, float phase)
+        public Planet(Vector2 orbloc, float rad, float mass, Color col, float[] orbrad, float[] tPeriod, float[] phase)
         {
-            this.orbloc  = orbloc;
+            this.orbloc = orbloc;
             this.loc = orbloc;
             this.rad = rad;
             this.mass = mass;
@@ -35,7 +36,9 @@ namespace Space_Explorer
         }
         public void Update(float elapsedTime)
         {
-            loc = orbloc + orbrad * Vector2.Transform(Vector2.UnitX, Matrix.CreateRotationZ(MathHelper.TwoPi * elapsedTime / tPeriod + phase));
+            loc = orbloc;
+            for (int i = 0; i < orbrad.Length; i++)
+                loc += orbrad[i] * Vector2.Transform(Vector2.UnitX, Matrix.CreateRotationZ(MathHelper.TwoPi * elapsedTime / tPeriod[i] + phase[i]));
         }
 
         public void Draw(SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
