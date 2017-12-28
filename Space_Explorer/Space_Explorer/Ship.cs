@@ -64,9 +64,10 @@ namespace Space_Explorer
             cam.X += (camFocusLoc.X - cam.X) / 20;
             cam.Y += (camFocusLoc.Y - cam.Y) / 20;
             cam.Zoom += (camFocusZoom - cam.Zoom) / 20;
-            cam.Rotation += (camFocusRot - cam.Rotation) / 20;
-
-            currentBelt = null;
+            float RotDifference = ((camFocusRot - cam.Rotation) % MathHelper.TwoPi);
+            if (RotDifference >  MathHelper.Pi) RotDifference -= MathHelper.Pi;
+            if (RotDifference < -MathHelper.Pi) RotDifference += MathHelper.Pi;
+            cam.Rotation += RotDifference/20;
             if (health < 0) { health = 0; }
             if (Hittimer > 0) { Hittimer--; }
         }
@@ -90,6 +91,7 @@ namespace Space_Explorer
 
         public void BeltInteraction(Camera cam,KeyboardState newK, AsteroidBelt belt)
         {
+            currentBelt = null;
             if ((loc-belt.loc).Length()>belt.inRad && (loc - belt.loc).Length() < belt.outRad)
             {
                 currentBelt = belt;
@@ -99,8 +101,9 @@ namespace Space_Explorer
 
         public void CamDraw(Camera cam, KeyboardState newK, SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {
-            if (newK.IsKeyDown(Keys.Space)) sB.Draw(textures[1], loc, null, Color.FromNonPremultiplied(0,new Random().Next(20,80),new Random().Next(100,200), 100)
-                , rotation, new Vector2(textures[1].Width / 2, textures[1].Height), 0.05f / cam.Zoom, SpriteEffects.None, 0f);
+            if (newK.IsKeyDown(Keys.Space) && currentBelt != null)
+                sB.Draw(textures[1], loc, null, Color.FromNonPremultiplied(0,new Random().Next(50,150),new Random().Next(150,200), 100),
+                rotation, new Vector2(textures[1].Width / 2, textures[1].Height), 0.5f / cam.Zoom, SpriteEffects.None, 0f);
             sB.Draw(textures[0], loc, null, Color.White, rotation, new Vector2(textures[0].Width / 2, textures[0].Height / 2), 0.05f/cam.Zoom, SpriteEffects.None, 0f);
             sB.DrawString(fonts[0], health.ToString(), loc - Vector2.Transform(30 * Vector2.UnitY, Matrix.CreateRotationZ(-cam.Rotation)), Color.Red, -cam.Rotation, fonts[0].MeasureString(health.ToString())/2, 1f,SpriteEffects.None,1f);
         }
