@@ -52,7 +52,7 @@ namespace Space_Explorer
             camFocusLoc = loc;
             if (currentBelt != null)
             {
-                camFocusZoom = screenH / 1000f;
+                camFocusZoom = screenH / 500f;
                 camFocusRot = -rotation;
             }
             else
@@ -88,20 +88,23 @@ namespace Space_Explorer
             }
         }
 
-        public void BeltInteraction(Camera cam, AsteroidBelt belt)
+        public void BeltInteraction(Camera cam,KeyboardState newK, AsteroidBelt belt)
         {
             if ((loc-belt.loc).Length()>belt.inRad && (loc - belt.loc).Length() < belt.outRad)
             {
                 currentBelt = belt;
             }
+            if (newK.IsKeyDown(Keys.Space)) { }
         }
 
-        public void CamDraw(Camera cam, SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
+        public void CamDraw(Camera cam, KeyboardState newK, SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {
+            if (newK.IsKeyDown(Keys.Space)) sB.Draw(textures[1], loc, null, Color.FromNonPremultiplied(0,new Random().Next(20,80),new Random().Next(100,200), 100)
+                , rotation, new Vector2(textures[1].Width / 2, textures[1].Height), 0.05f / cam.Zoom, SpriteEffects.None, 0f);
             sB.Draw(textures[0], loc, null, Color.White, rotation, new Vector2(textures[0].Width / 2, textures[0].Height / 2), 0.05f/cam.Zoom, SpriteEffects.None, 0f);
             sB.DrawString(fonts[0], health.ToString(), loc - Vector2.Transform(30 * Vector2.UnitY, Matrix.CreateRotationZ(-cam.Rotation)), Color.Red, -cam.Rotation, fonts[0].MeasureString(health.ToString())/2, 1f,SpriteEffects.None,1f);
         }
-        public void StaticDraw(SpriteBatch sB, GraphicsDeviceManager graphics, Texture2D[] textures, SpriteFont[] fonts)
+        public void StaticDraw(GraphicsDeviceManager graphics, SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {
             sB.Draw(textures[0], new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight),null, Color.FromNonPremultiplied(255,0,0,(int)(100 * (Hittimer/100))), 0f, Vector2.Zero, SpriteEffects.None, 0.5f);
         }
