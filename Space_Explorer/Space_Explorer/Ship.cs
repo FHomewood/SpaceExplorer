@@ -34,10 +34,10 @@ namespace Space_Explorer
                 particleList.Add(
                     new Particle(
                         loc - 6/cam.Zoom * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation)),
-                        vel + Vector2.Transform((float)rand.NextDouble() * Vector2.UnitX, Matrix.CreateRotationZ((float)rand.NextDouble() * MathHelper.TwoPi)) / 4,
+                        vel + Vector2.Transform((float)rand.NextDouble() * Vector2.UnitX, Matrix.CreateRotationZ((float)rand.NextDouble() * MathHelper.TwoPi)) / 4/cam.Zoom,
                         Color.FromNonPremultiplied(rand.Next(200, 255), rand.Next(100, 200), rand.Next(0, 100), 255),
                         50,
-                        2,
+                        2/cam.Zoom,
                         0f
                         )
                     );
@@ -82,7 +82,7 @@ namespace Space_Explorer
                 Vector2 perpendicular = Vector2.Transform(parallel, Matrix.CreateRotationZ(-MathHelper.PiOver2));
                 vel = perpendicular * Vector2.Dot(perpendicular, vel) - parallel * Vector2.Dot(parallel, vel);
                 if (vel.Length() > 0.5f) { health -= vel.Length() * 10; Hittimer = 100; }
-                if (vel.Length() < 0.01f) { vel = Vector2.Zero; }
+                if (vel.Length() < 0.1f) { vel = Vector2.Zero; }
                 vel /= 1.5f;
                 loc += (difference.Length() - planet.GetRadius() - 10f / cam.Zoom) * difference / difference.Length();
             }

@@ -59,8 +59,8 @@ namespace Space_Explorer
 
             //Define Map
             //Planets
-            planetList.Add(new Planet(new Vector2(400, 360), 200, 5, Color.ForestGreen)); //Earth
-            planetList.Add(new Planet(new Vector2(400, 360), 50, 5, Color.Gray, 1000, 200, 0)); //Moon
+            planetList.Add(new Planet(new Vector2(400, 360), 200, 300, Color.ForestGreen)); //Earth
+            planetList.Add(new Planet(new Vector2(400, 360), 50, 120, Color.Gray, 1000, 200, 0)); //Moon
 
             //Asteroid Belts
             beltList.Add(new AsteroidBelt(new Vector2(400, 360), 2000, 3000));
