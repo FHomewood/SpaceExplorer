@@ -37,8 +37,6 @@ namespace Space_Explorer
             foreach (Asteroid asteroid in asteroidList) asteroid.Draw(sB, textures, fonts);
         }
         public void OverDraw(SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
-        {
-            sB.DrawString(fonts[0], area.ToString(), loc - fonts[0].MeasureString(area.ToString()) / 2 - outRad*Vector2.UnitY, Color.White);
-        }
+        {  }
     }
 }

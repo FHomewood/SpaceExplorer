@@ -22,7 +22,7 @@ namespace Space_Explorer
             this.loc = loc;
             this.screenW = screenW;
             this.screenH = screenH;
-            this.closestBody = new Planet(5000 * Vector2.One, 1, 0, Color.AliceBlue);
+            this.closestBody = new Planet(5000 * Vector2.One, 1, 0, Color.Black);
         }
 
         public void Update(Camera cam, KeyboardState oldK, KeyboardState newK, MouseState oldM, MouseState newM, List<Particle> particleList)
@@ -37,7 +37,7 @@ namespace Space_Explorer
                         vel + Vector2.Transform((float)rand.NextDouble() * Vector2.UnitX, Matrix.CreateRotationZ((float)rand.NextDouble() * MathHelper.TwoPi)) / 4/cam.Zoom,
                         Color.FromNonPremultiplied(rand.Next(200, 255), rand.Next(100, 200), rand.Next(0, 100), 255),
                         50,
-                        2/cam.Zoom,
+                        3/cam.Zoom,
                         0f
                         )
                     );
@@ -64,10 +64,10 @@ namespace Space_Explorer
             cam.X += (camFocusLoc.X - cam.X) / 20;
             cam.Y += (camFocusLoc.Y - cam.Y) / 20;
             cam.Zoom += (camFocusZoom - cam.Zoom) / 20;
-            float RotDifference = ((camFocusRot - cam.Rotation) % MathHelper.TwoPi);
-            if (RotDifference >  MathHelper.Pi) RotDifference -= MathHelper.Pi;
-            if (RotDifference < -MathHelper.Pi) RotDifference += MathHelper.Pi;
-            cam.Rotation += RotDifference/20;
+            float RotDifference = ((camFocusRot - cam.Rotation) % MathHelper.PiOver2);
+            //if (RotDifference >  MathHelper.Pi) RotDifference -= MathHelper.Pi;
+            //if (RotDifference < -MathHelper.Pi) RotDifference += MathHelper.Pi;
+            cam.Rotation += RotDifference / 20;
             if (health < 0) { health = 0; }
             if (Hittimer > 0) { Hittimer--; }
         }
