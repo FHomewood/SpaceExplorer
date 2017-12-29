@@ -83,3 +83,4 @@ C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\obj
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\obj\x86\Debug\Space_Explorer.pdb
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\MarkedCircle500.xnb
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\500px30degSector.xnb
+C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\Currency.xnb

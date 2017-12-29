@@ -54,7 +54,7 @@ namespace Space_Explorer
                         if (Math.Abs(Math.Atan2(Difference.Y, Difference.X)) < Math.PI / 12)
                         {
                             asteroid.Radius -= 0.03f;
-                            money += (float)(2 * Math.PI * (Math.Pow(asteroid.Radius + 0.03f, 2) - Math.Pow(asteroid.Radius, 2)));
+                            money += (float)(Math.Pow(asteroid.Radius + 0.03f, 2) - Math.Pow(asteroid.Radius, 2))/1000f;
                         }
                     }
                         
@@ -121,8 +121,9 @@ namespace Space_Explorer
         }
         public void StaticDraw(GraphicsDeviceManager graphics, SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {
-            sB.Draw(textures[0], new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight),null, Color.FromNonPremultiplied(255,0,0,(int)(100 * (Hittimer/100))), 0f, Vector2.Zero, SpriteEffects.None, 0.5f);
-            sB.DrawString(fonts[0], "$" + Math.Round(money, 2).ToString(), Vector2.UnitY * screenH + Vector2.UnitX * screenW, Color.Green, 0f, fonts[0].MeasureString("$" + Math.Round(money, 2).ToString()), 1f, SpriteEffects.None, 0f);
+            sB.Draw(textures[0], new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), null, Color.FromNonPremultiplied(255, 0, 0, (int)(100 * (Hittimer / 100))), 0f, Vector2.Zero, SpriteEffects.None, 0.5f);
+            sB.DrawString(fonts[0], Math.Round(money, 2).ToString(), Vector2.UnitY * screenH + Vector2.UnitX * screenW, Color.Green, 0f, fonts[0].MeasureString(Math.Round(money, 2).ToString()), 1f, SpriteEffects.None, 0f);
+            sB.Draw(textures[1], new Rectangle(new Vector2(screenW - fonts[0].MeasureString(Math.Round(money, 2).ToString()).X, screenH).ToPoint(), new Vector2(1+fonts[0].MeasureString(Math.Round(money, 2).ToString()).Y * textures[1].Width/textures[1].Height, fonts[0].MeasureString(Math.Round(money, 2).ToString()).Y).ToPoint()), null, Color.Green, 0f, textures[1].Bounds.Size.ToVector2(), SpriteEffects.None, 0f);
         }
     }
 }
