@@ -38,5 +38,11 @@ namespace Space_Explorer
         }
         public void OverDraw(SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {  }
+
+        public List<Asteroid> Asteroids
+        {
+            get { return asteroidList; }
+            set { asteroidList = value; }
+        }
     }
 }

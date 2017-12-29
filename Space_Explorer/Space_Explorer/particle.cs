@@ -10,10 +10,11 @@ namespace Space_Explorer
 {
     class Particle
     {
-        Vector2 loc, vel;
-        Color col;
-        float lifespan , life, radius;
-        float renderDepth;
+        private Vector2 loc, vel;
+        private Color col;
+        private float lifespan , life, radius;
+        private float renderDepth;
+
         public Particle(Vector2 loc, Vector2 vel, Color col, float lifespan, float radius, float renderDepth)
         {
             this.loc = loc;
@@ -24,11 +25,13 @@ namespace Space_Explorer
             this.radius = radius;
             this.renderDepth = renderDepth;
         }
+
         public void Update()
         {
             loc += vel;
             life--;
         }
+
         public void Draw(SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {
             sB.Draw(textures[0], loc, null, Color.FromNonPremultiplied(col.R, col.G, col.B, (int)(255*life / lifespan)), 0f, textures[0].Bounds.Size.ToVector2() / 2,2*radius/textures[0].Width, SpriteEffects.None, renderDepth);

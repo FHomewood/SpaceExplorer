@@ -11,11 +11,11 @@ namespace Space_Explorer
 {
     class Ship
     {
-        public Vector2 loc, vel, camFocusLoc;
-        Planet closestBody;
-        AsteroidBelt currentBelt;
-        float rotation, health = 100, Hittimer, camFocusZoom,camFocusRot;
-        int screenW, screenH;
+        private Vector2 loc, vel, camFocusLoc;
+        private Planet closestBody;
+        private AsteroidBelt currentBelt;
+        private float rotation, health = 100, Hittimer, camFocusZoom,camFocusRot;
+        private int screenW, screenH;
 
         public Ship(Vector2 loc, int screenW, int screenH)
         {
@@ -45,6 +45,12 @@ namespace Space_Explorer
             if (newK.IsKeyDown(Keys.S)) vel -= 0.01f * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
             if (newK.IsKeyDown(Keys.A)) rotation -= 0.05f;
             if (newK.IsKeyDown(Keys.D)) rotation += 0.05f;
+            if (newK.IsKeyDown(Keys.Space) && currentBelt != null) 
+                foreach(Asteroid asteroid in currentBelt.Asteroids)
+                {
+                    if ((asteroid.Loc - loc).Length() < 12.5f / cam.Zoom)
+                        ;
+                }
 
             loc += vel;
 
@@ -57,8 +63,8 @@ namespace Space_Explorer
             }
             else
             {
-                camFocusZoom = screenH / 2 / (closestBody.GetLoc() - loc).Length();
-                camFocusRot = -MathHelper.PiOver2 - (float)Math.Atan2((loc - closestBody.GetLoc()).Y, (loc - closestBody.GetLoc()).X);
+                camFocusZoom = screenH / 2 / (closestBody.Loc - loc).Length();
+                camFocusRot = -MathHelper.PiOver2 - (float)Math.Atan2((loc - closestBody.Loc).Y, (loc - closestBody.Loc).X);
             }
 
             cam.X += (camFocusLoc.X - cam.X) / 20;
@@ -72,10 +78,10 @@ namespace Space_Explorer
 
         public void PlanetInteraction(Camera cam, float frametime, Planet planet)
         {
-            Vector2 difference = (planet.GetLoc() - loc);
-            if (difference.Length() < (closestBody.GetLoc() - loc).Length()) closestBody = planet;
-            vel += difference * planet.GetMass() * (float)Math.Pow(difference.Length(), -3);
-            if (difference.Length() < planet.GetRadius() + 10f/cam.Zoom)
+            Vector2 difference = (planet.Loc - loc);
+            if (difference.Length() < (closestBody.Loc - loc).Length()) closestBody = planet;
+            vel += difference * planet.Mass * (float)Math.Pow(difference.Length(), -3);
+            if (difference.Length() < planet.Radius + 10f/cam.Zoom)
             {
                 Vector2 parallel      = difference / difference.Length();
                 Vector2 perpendicular = Vector2.Transform(parallel, Matrix.CreateRotationZ(-MathHelper.PiOver2));
@@ -83,7 +89,7 @@ namespace Space_Explorer
                 if (vel.Length() > 0.5f) { health -= vel.Length() * 10; Hittimer = 100; }
                 if (vel.Length() < 0.1f) { vel = Vector2.Zero; }
                 vel /= 1.5f;
-                loc += (difference.Length() - planet.GetRadius() - 10f / cam.Zoom) * difference / difference.Length();
+                loc += (difference.Length() - planet.Radius - 10f / cam.Zoom) * difference / difference.Length();
             }
         }
 

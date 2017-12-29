@@ -10,10 +10,10 @@ namespace Space_Explorer
 {
     class Asteroid
     {
-        AsteroidBelt motherBelt;
-        Vector2 loc;
-        Color col;
-        float radius;
+        private AsteroidBelt motherBelt;
+        private Vector2 loc;
+        private Color col;
+        private float radius;
 
 
         public Asteroid(AsteroidBelt motherBelt, Vector2 loc, float radius)
@@ -43,6 +43,11 @@ namespace Space_Explorer
         public void Draw(SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {
             sB.Draw(textures[0], loc, null, col, 0f, textures[0].Bounds.Size.ToVector2() / 2, 2 * radius / textures[0].Width, SpriteEffects.None, 0f);
+        }
+        public Vector2 Loc
+        {
+            get { return loc; }
+            set { loc = value; }
         }
     }
 }

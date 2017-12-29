@@ -6,10 +6,10 @@ namespace Space_Explorer
 {
     class Planet
     {
-        Vector2 loc, orbloc;
-        float rad, mass;
-        float[] tPeriod, orbrad, phase;
-        Color col;
+        private Vector2 loc, orbloc;
+        private float rad, mass;
+        private float[] tPeriod, orbrad, phase;
+        private Color col;
 
 
         public Planet(Vector2 loc, float rad, float mass, Color col)
@@ -46,8 +46,20 @@ namespace Space_Explorer
             sB.Draw(textures[0], loc, null, col, 0f, new Vector2(textures[0].Width / 2, textures[0].Height / 2), 2*rad/textures[0].Width, SpriteEffects.None, 0.5f);
         }
 
-        public Vector2 GetLoc()  { return loc; }
-        public float GetRadius() { return rad; }
-        public float GetMass()   { return mass; }
+        public Vector2 Loc
+        {
+            get { return loc; }
+            set { loc = value; }
+        }
+        public float Radius
+        {
+            get { return rad; }
+            set { rad = value; }
+        }
+        public float Mass
+        {
+            get { return mass; }
+            set { mass = value; }
+        }
     }
 }
