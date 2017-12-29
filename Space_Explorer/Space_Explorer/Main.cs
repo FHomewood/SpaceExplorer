@@ -59,11 +59,11 @@ namespace Space_Explorer
 
             //Define Map
             //Planets
-            planetList.Add(new Planet(Vector2.Zero, 700, 700, Color.Goldenrod)); //Sun
-            planetList.Add(new Planet(Vector2.Zero, 100, 100, Color.Brown, new float[] { 5000 }, new float[] { 200 }, new float[] { 0 })); //
-            planetList.Add(new Planet(Vector2.Zero, 150, 150, Color.Purple, new float[] { 10000 }, new float[] { 300 }, new float[] { 0 })); //
-            planetList.Add(new Planet(Vector2.Zero, 200, 200, Color.ForestGreen, new float[] { 20000 }, new float[] { 600 }, new float[] { 0 })); //
-            planetList.Add(new Planet(Vector2.Zero, 50, 50, Color.Gray, new float[] { 20000, 1000 }, new float[] { 600, 50 }, new float[] { 0, 0 })); //
+            planetList.Add(new Planet(Vector2.Zero, 700, 1400, Color.Goldenrod)); //Sun
+            planetList.Add(new Planet(Vector2.Zero, 100, 200, Color.Brown, new float[] { 5000 }, new float[] { 200 }, new float[] { 0 })); //
+            planetList.Add(new Planet(Vector2.Zero, 150, 300, Color.Purple, new float[] { 10000 }, new float[] { 300 }, new float[] { 0 })); //
+            planetList.Add(new Planet(Vector2.Zero, 200, 400, Color.ForestGreen, new float[] { 20000 }, new float[] { 600 }, new float[] { 0 })); //
+            planetList.Add(new Planet(Vector2.Zero, 50, 100, Color.Gray, new float[] { 20000, 1000 }, new float[] { 600, 50 }, new float[] { 0, 0 })); //
 
             //Asteroid Belts
             beltList.Add(new AsteroidBelt(Vector2.Zero, 700, 1000));
@@ -117,7 +117,7 @@ namespace Space_Explorer
 
             sB.Begin();
             foreach (Ship ship in shipList)
-                ship.StaticDraw(graphics, sB, new Texture2D[] { texVignette }, new SpriteFont[] { });
+                ship.StaticDraw(graphics, sB, new Texture2D[] { texVignette }, new SpriteFont[] { fontDebug });
             sB.DrawString(fontDebug, "Elapsed Time: " + elapsedTime.ToString() + "s", Vector2.Zero, Color.White);
                 sB.End();
 

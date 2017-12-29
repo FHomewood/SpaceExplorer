@@ -14,7 +14,7 @@ namespace Space_Explorer
         private Vector2 loc, vel, camFocusLoc;
         private Planet closestBody;
         private AsteroidBelt currentBelt;
-        private float rotation, health = 100, Hittimer, camFocusZoom,camFocusRot;
+        private float rotation, health = 100, Hittimer, camFocusZoom,camFocusRot, money = 0f;
         private int screenW, screenH;
 
         public Ship(Vector2 loc, int screenW, int screenH)
@@ -48,8 +48,16 @@ namespace Space_Explorer
             if (newK.IsKeyDown(Keys.Space) && currentBelt != null) 
                 foreach(Asteroid asteroid in currentBelt.Asteroids)
                 {
-                    if ((asteroid.Loc - loc).Length() < 12.5f / cam.Zoom)
-                        ;
+                    if ((asteroid.Loc - loc).Length() < 250f / cam.Zoom)
+                    {
+                        Vector2 Difference = Vector2.Transform(asteroid.Loc - loc,Matrix.CreateRotationZ(-rotation + MathHelper.PiOver2));
+                        if (Math.Abs(Math.Atan2(Difference.Y, Difference.X)) < Math.PI / 12)
+                        {
+                            asteroid.Radius -= 0.03f;
+                            money += (float)(2 * Math.PI * (Math.Pow(asteroid.Radius + 0.03f, 2) - Math.Pow(asteroid.Radius, 2)));
+                        }
+                    }
+                        
                 }
 
             loc += vel;
@@ -58,7 +66,7 @@ namespace Space_Explorer
             camFocusLoc = loc;
             if (currentBelt != null)
             {
-                camFocusZoom = screenH / 20000f;
+                camFocusZoom = screenH / 250f;
                 camFocusRot = -rotation;
             }
             else
@@ -114,6 +122,7 @@ namespace Space_Explorer
         public void StaticDraw(GraphicsDeviceManager graphics, SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {
             sB.Draw(textures[0], new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight),null, Color.FromNonPremultiplied(255,0,0,(int)(100 * (Hittimer/100))), 0f, Vector2.Zero, SpriteEffects.None, 0.5f);
+            sB.DrawString(fonts[0], "$" + Math.Round(money, 2).ToString(), Vector2.UnitY * screenH + Vector2.UnitX * screenW, Color.Green, 0f, fonts[0].MeasureString("$" + Math.Round(money, 2).ToString()), 1f, SpriteEffects.None, 0f);
         }
     }
 }

@@ -49,5 +49,10 @@ namespace Space_Explorer
             get { return loc; }
             set { loc = value; }
         }
+        public float Radius
+        {
+            get { return radius; }
+            set { radius = value; }
+        }
     }
 }

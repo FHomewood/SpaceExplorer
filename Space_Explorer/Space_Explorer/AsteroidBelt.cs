@@ -25,9 +25,15 @@ namespace Space_Explorer
 
         public void Update()
         {
-            if (area / 1 > asteroidList.Count())
+            if (area / 1000 > asteroidList.Count())
                 asteroidList.Add(new Asteroid(this, new Random()));
-            
+            for (int i = 0; i < asteroidList.Count(); i++)
+            {
+                asteroidList[i].Update();
+                if (asteroidList[i].Radius <= 0) asteroidList.Remove(asteroidList[i]);
+            }
+
+                   
         }
 
         public void UnderDraw(SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
