@@ -14,17 +14,8 @@ namespace Space_Explorer
         private Vector2 loc;
         private Color col;
         private float radius;
+        private float[] itemDrops;
 
-
-
-        public Asteroid(AsteroidBelt motherBelt, Vector2 loc, float radius)
-        {
-            this.motherBelt = motherBelt;
-            this.loc = loc;
-            this.radius = radius;
-            Random rand = new Random();
-            col = Color.FromNonPremultiplied(rand.Next(50, 70), rand.Next(50, 70), rand.Next(50, 70), 255);
-        }
         public Asteroid(AsteroidBelt motherBelt, Random rand)
         {
             this.motherBelt = motherBelt;
@@ -34,6 +25,7 @@ namespace Space_Explorer
             else this.loc = motherBelt.loc + (motherBelt.inRad + (float)(u) * (motherBelt.outRad - motherBelt.inRad)) * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ((float)(2 * rand.NextDouble() * Math.PI)));
             this.radius = 2f+10*(float)rand.NextDouble();
             col = Color.FromNonPremultiplied(rand.Next(50, 100), rand.Next(50, 70), rand.Next(50, 60), 255);
+            itemDrops = new float[64];
         }
 
         public void Update()
@@ -54,6 +46,19 @@ namespace Space_Explorer
         {
             get { return radius; }
             set { radius = value; }
+        }
+        public float GetItem(int i)
+        {
+            return itemDrops[i];
+        }
+        public void SetItem(int i , float value)
+        {
+            itemDrops[i] = value;
+        }
+        public float[] ItemDrops
+        {
+            get { return itemDrops; }
+            set { itemDrops = value; }
         }
     }
 }
