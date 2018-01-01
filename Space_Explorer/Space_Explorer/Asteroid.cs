@@ -16,6 +16,7 @@ namespace Space_Explorer
         private float radius;
 
 
+
         public Asteroid(AsteroidBelt motherBelt, Vector2 loc, float radius)
         {
             this.motherBelt = motherBelt;
