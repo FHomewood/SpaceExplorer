@@ -104,3 +104,10 @@
 /processorParam:TextureFormat=Color
 /build:EvenPixel.jpg
 
+#begin BoldArial.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:BoldArial.spritefont
+

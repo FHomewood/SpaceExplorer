@@ -14,7 +14,7 @@ namespace Space_Explorer
         MouseState oldM, newM;
         Texture2D texPixel, texShip, texCircle, texMarkedCircle,
             texSector, texVignette, texCurrency;
-        SpriteFont fontDebug;
+        SpriteFont fontDebug, fontBoldArial;
         Camera cam;
         int screenW, screenH;
         float elapsedTime;
@@ -80,6 +80,7 @@ namespace Space_Explorer
             texVignette = Content.Load<Texture2D>("Transparent Vignette");
             texCurrency = Content.Load<Texture2D>("Currency");
             fontDebug = Content.Load<SpriteFont>("Debug");
+            fontBoldArial = Content.Load<SpriteFont>("BoldArial");
         }
         protected override void UnloadContent()
         {  }
@@ -122,7 +123,7 @@ namespace Space_Explorer
 
             sB.Begin();
             foreach (Ship ship in shipList)
-                ship.StaticDraw(graphics, sB, new Texture2D[] { texVignette, texCurrency, texPixel }, new SpriteFont[] { fontDebug });
+                ship.StaticDraw(graphics, sB, new Texture2D[] { texVignette, texCurrency, texPixel }, new SpriteFont[] { fontDebug, fontBoldArial });
             sB.DrawString(fontDebug, "Elapsed Time: " + elapsedTime.ToString() + "s", Vector2.Zero, Color.White);
                 sB.End();
 

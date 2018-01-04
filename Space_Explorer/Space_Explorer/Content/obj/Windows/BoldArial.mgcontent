@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/Chikan/Documents/GitHub/SpaceExplorer/Space_Explorer/Space_Explorer/Content/BoldArial.spritefont</SourceFile>
+  <SourceTime>2018-01-04T18:33:49.9850743+00:00</SourceTime>
+  <DestFile>C:/Users/Chikan/Documents/GitHub/SpaceExplorer/Space_Explorer/Space_Explorer/Content/bin/Windows/BoldArial.xnb</DestFile>
+  <DestTime>2018-01-04T18:34:12.0814559+00:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2017-03-01T15:05:36+00:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

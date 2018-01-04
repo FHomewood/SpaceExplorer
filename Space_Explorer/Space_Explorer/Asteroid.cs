@@ -27,8 +27,13 @@ namespace Space_Explorer
             col = Color.FromNonPremultiplied(rand.Next(50, 100), rand.Next(50, 70), rand.Next(50, 60), 255);
             itemDrops = new float[64];
             itemDrops[0] = 0.6f;
-            itemDrops[1] = 0.35f;
+            itemDrops[1] = 0.3f;
             itemDrops[2] = 0.05f;
+            itemDrops[3] = 0.01f;
+            itemDrops[4] = 0.01f;
+            itemDrops[5] = 0.01f;
+            itemDrops[6] = 0.01f;
+            itemDrops[7] = 0.01f;
         }
 
         public void Update()

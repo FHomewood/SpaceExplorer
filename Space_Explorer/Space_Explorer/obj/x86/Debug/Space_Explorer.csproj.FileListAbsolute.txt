@@ -85,3 +85,4 @@ C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\500px30degSector.xnb
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\Currency.xnb
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\EvenPixel.xnb
+C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\BoldArial.xnb
