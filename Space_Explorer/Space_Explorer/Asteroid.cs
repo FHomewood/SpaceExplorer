@@ -33,7 +33,16 @@ namespace Space_Explorer
             itemDrops[4] = 0.01f;
             itemDrops[5] = 0.01f;
             itemDrops[6] = 0.01f;
-            itemDrops[7] = 0.01f;
+            itemDrops[7] = 0.001f;
+            itemDrops[8] = 0.001f;
+            itemDrops[9] = 0.001f;
+            itemDrops[10] = 0.001f;
+            itemDrops[11] = 0.001f;
+            itemDrops[12] = 0.001f;
+            itemDrops[13] = 0.001f;
+            itemDrops[14] = 0.001f;
+            itemDrops[15] = 0.001f;
+            itemDrops[16] = 0.001f;
         }
 
         public void Update()

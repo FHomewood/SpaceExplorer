@@ -144,29 +144,39 @@ namespace Space_Explorer
             for (int i = 0; i < Inventory.Length; i++)
                 if (Inventory[i].amount != 0)
                     DrawInv.Add(Inventory[i]);
+
+            //This draws each Inventory Item in the HUD
             foreach (Item item in DrawInv)
             {
-                float cursorDist = Math.Abs(385 + item.id * 52 - Mouse.GetState().Y);
-                sB.Draw(textures[2], new Rectangle((int)(980+invScreen_loc), 360 + item.id * 52, 300, 50), Color.FromNonPremultiplied(160,160,160,(int)(255 - 255 * Math.Pow(cursorDist/screenH,0.4))));
+                //BoxLoc defines where the box is, it incorporates: 
+                    //whether the inventory screen is selected or not,
+                    //the seperation of each of the item points,
+                    //scrolling due to cursor placement.
+                Vector2 Boxloc = new Vector2(screenW - 300 + invScreen_loc, (1+item.id) * 52 - (DrawInv.Count()+1) * 52 * Mouse.GetState().Y / (float)screenH + Mouse.GetState().Y);
+                Boxloc.X += (float)Math.Abs(Math.Pow(Boxloc.Y + 26 - Mouse.GetState().Y,3)) / (float)screenH / 2f;
+                //Item box is drawn at boxloc and given an opacity related to how close the cursor is to the item
+                sB.Draw(textures[2], new Rectangle((int)Boxloc.X, (int)Boxloc.Y, 300, 50),null, Color.FromNonPremultiplied(220,220,220,(int)(255 - 255 * Math.Abs(Boxloc.Y + 26 - Mouse.GetState().Y) / (float)screenH)),
+                    0f, Vector2.UnitY,SpriteEffects.None,0f
+                    );
                 sB.DrawString(fonts[1],
-                    item.name, new Vector2(990+invScreen_loc, 365 + item.id * 52),
+                    item.name, new Vector2(Boxloc.X + 10, Boxloc.Y - 15),
                     Color.Black, 0f, Vector2.Zero,
                     16f / fonts[1].MeasureString(item.name).Y,
                     SpriteEffects.None, 0f);
                 sB.DrawString(fonts[1],
-                    item.desc, new Vector2(990+invScreen_loc, 380 + item.id * 52),
+                    item.desc, new Vector2(Boxloc.X + 15, Boxloc.Y),
                     Color.Black, 0f, Vector2.Zero,
                     13f / fonts[1].MeasureString(item.desc).Y,
                     SpriteEffects.None, 0f);
-                sB.DrawString(fonts[1], Math.Round(item.value,2).ToString(),
-                    new Vector2(1270+invScreen_loc, 375 + item.id * 52),
+                sB.DrawString(fonts[1], Math.Round(item.value, 2).ToString(),
+                    new Vector2(Boxloc.X + 290, Boxloc.Y - 15),
                     Color.Green, 0f, new Vector2(fonts[1].MeasureString(Math.Round(item.value, 2).ToString()).X, 0),
-                    13f/ fonts[1].MeasureString(Math.Round(item.value, 2).ToString()).Y,
+                    13f / fonts[1].MeasureString(Math.Round(item.value, 2).ToString()).Y,
                     SpriteEffects.None, 0f);
                 sB.DrawString(fonts[1],
-                    Math.Round(item.amount *item.mass, 2).ToString() + "kg", new Vector2(1270+invScreen_loc, 390 + item.id * 52),
+                    Math.Round(item.amount * item.mass, 2).ToString() + "kg", new Vector2(Boxloc.X + 290, Boxloc.Y),
                     Color.Black, 0f, new Vector2(fonts[1].MeasureString(Math.Round(item.amount * item.mass, 2).ToString() + "kg").X, 0),
-                    13f/ fonts[1].MeasureString(Math.Round(item.amount * item.mass, 2).ToString() + "kg").Y,
+                    13f / fonts[1].MeasureString(Math.Round(item.amount * item.mass, 2).ToString() + "kg").Y,
                     SpriteEffects.None, 0f);
             }
         }
