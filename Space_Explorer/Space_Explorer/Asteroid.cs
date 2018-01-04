@@ -26,6 +26,9 @@ namespace Space_Explorer
             this.radius = 2f+10*(float)rand.NextDouble();
             col = Color.FromNonPremultiplied(rand.Next(50, 100), rand.Next(50, 70), rand.Next(50, 60), 255);
             itemDrops = new float[64];
+            itemDrops[0] = 0.6f;
+            itemDrops[1] = 0.35f;
+            itemDrops[2] = 0.05f;
         }
 
         public void Update()

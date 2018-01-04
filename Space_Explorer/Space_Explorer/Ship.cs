@@ -16,7 +16,7 @@ namespace Space_Explorer
         private AsteroidBelt currentBelt;
         private float rotation, health = 100, Hittimer, camFocusZoom,camFocusRot, money = 0f;
         private int screenW, screenH;
-        private float[] Inventory = new float[64];
+        private Item[] Inventory = new Item[64];
 
         public Ship(Vector2 loc, int screenW, int screenH)
         {
@@ -24,6 +24,8 @@ namespace Space_Explorer
             this.screenW = screenW;
             this.screenH = screenH;
             this.closestBody = new Planet(5000 * Vector2.One, 1, 0, Color.Black);
+            for (int i = 0; i < 64; i++)
+                Inventory[i] = new Item(i);
         }
 
         public void Update(Camera cam, KeyboardState oldK, KeyboardState newK, MouseState oldM, MouseState newM, List<Particle> particleList)
@@ -58,7 +60,7 @@ namespace Space_Explorer
                             money += (float)(Math.Pow(asteroid.Radius + 0.03f, 2) - Math.Pow(asteroid.Radius, 2))/1000f;
                             for (int i = 0; i < Inventory.Length; i++)
                             {
-
+                                Inventory[i].amount += asteroid.ItemDrops[i] * (float)(Math.Pow(asteroid.Radius + 0.03f, 2) - Math.Pow(asteroid.Radius, 2)) / 1000f;
                             }
                         }
                     }
@@ -133,6 +135,18 @@ namespace Space_Explorer
             sB.Draw(textures[0], new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), null, Color.FromNonPremultiplied(255, 0, 0, (int)(100 * (Hittimer / 100))), 0f, Vector2.Zero, SpriteEffects.None, 0.5f);
             sB.DrawString(fonts[0], Math.Round(money, 2).ToString(), Vector2.UnitY * screenH + Vector2.UnitX * screenW, Color.Green, 0f, fonts[0].MeasureString(Math.Round(money, 2).ToString()), 1f, SpriteEffects.None, 0f);
             sB.Draw(textures[1], new Rectangle(new Vector2(screenW - fonts[0].MeasureString(Math.Round(money, 2).ToString()).X, screenH).ToPoint(), new Vector2(1+fonts[0].MeasureString(Math.Round(money, 2).ToString()).Y * textures[1].Width/textures[1].Height, fonts[0].MeasureString(Math.Round(money, 2).ToString()).Y).ToPoint()), null, Color.Green, 0f, textures[1].Bounds.Size.ToVector2(), SpriteEffects.None, 0f);
+            List<Item> DrawInv = new List<Item>();
+            for (int i = 0; i < Inventory.Length; i++)
+                if (Inventory[i].amount != 0)
+                    DrawInv.Add(Inventory[i]);
+            foreach (Item item in DrawInv)
+            {
+                sB.Draw(textures[2], new Rectangle(980, 360 + item.id * 60, 300, 50), Color.White);
+                sB.DrawString(fonts[0], item.name, new Vector2(980, 365 + item.id * 60), Color.Black);
+                sB.DrawString(fonts[0], item.desc, new Vector2(980, 380 + item.id * 60), Color.Black);
+                sB.DrawString(fonts[0], Math.Round(item.value,2).ToString(), new Vector2(1280, 375 + item.id * 60), Color.Green, 0f, new Vector2(fonts[0].MeasureString(Math.Round(item.value, 2).ToString()).X, 0), 1f, SpriteEffects.None, 0f);
+                sB.DrawString(fonts[0], (item.amount *item.mass).ToString() + "kg", new Vector2(1280, 390 + item.id * 60), Color.Black, 0f, new Vector2(fonts[0].MeasureString((item.amount * item.mass).ToString() + "kg").X, 0), 1f, SpriteEffects.None, 0f);
+            }
         }
     }
 }

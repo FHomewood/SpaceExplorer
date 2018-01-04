@@ -29,7 +29,6 @@ namespace Space_Explorer
             Random rand = new Random();
             while (area / 1000 > count)
             {
-
                 asteroidList.Add(new Asteroid(this, rand));
                 count++;
             }

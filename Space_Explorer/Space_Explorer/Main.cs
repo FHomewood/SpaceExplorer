@@ -12,7 +12,7 @@ namespace Space_Explorer
         SpriteBatch sB;
         KeyboardState oldK, newK;
         MouseState oldM, newM;
-        Texture2D texShip, texCircle, texMarkedCircle,
+        Texture2D texPixel, texShip, texCircle, texMarkedCircle,
             texSector, texVignette, texCurrency;
         SpriteFont fontDebug;
         Camera cam;
@@ -72,6 +72,7 @@ namespace Space_Explorer
         protected override void LoadContent()
         {
             sB = new SpriteBatch(GraphicsDevice);
+            texPixel = Content.Load<Texture2D>("EvenPixel");
             texShip = Content.Load<Texture2D>("Ship");
             texCircle = Content.Load<Texture2D>("Circle500");
             texMarkedCircle = Content.Load<Texture2D>("MarkedCircle500");
@@ -114,12 +115,14 @@ namespace Space_Explorer
             foreach (Ship ship in shipList) ship.CamDraw(cam, newK, sB, new Texture2D[] { texShip, texSector }, new SpriteFont[] { fontDebug });
             foreach (Planet planet in planetList) planet.Draw(sB, new Texture2D[] { texMarkedCircle }, new SpriteFont[] { });
             foreach (AsteroidBelt belt in beltList) belt.OverDraw(sB, new Texture2D[] { texCircle }, new SpriteFont[] { fontDebug });
+            if (newK.IsKeyDown(Keys.Enter))
+            { }
             sB.End();
 
 
             sB.Begin();
             foreach (Ship ship in shipList)
-                ship.StaticDraw(graphics, sB, new Texture2D[] { texVignette, texCurrency }, new SpriteFont[] { fontDebug });
+                ship.StaticDraw(graphics, sB, new Texture2D[] { texVignette, texCurrency, texPixel }, new SpriteFont[] { fontDebug });
             sB.DrawString(fontDebug, "Elapsed Time: " + elapsedTime.ToString() + "s", Vector2.Zero, Color.White);
                 sB.End();
 
