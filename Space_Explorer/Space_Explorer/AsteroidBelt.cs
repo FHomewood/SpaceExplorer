@@ -25,8 +25,14 @@ namespace Space_Explorer
 
         public void Update()
         {
-            if (area / 1000 > asteroidList.Count())
-                asteroidList.Add(new Asteroid(this, new Random()));
+            int count = asteroidList.Count();
+            Random rand = new Random();
+            while (area / 1000 > count)
+            {
+
+                asteroidList.Add(new Asteroid(this, rand));
+                count++;
+            }
             for (int i = 0; i < asteroidList.Count(); i++)
             {
                 asteroidList[i].Update();
