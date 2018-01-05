@@ -34,7 +34,7 @@ namespace Space_Explorer
         public void Update(Camera cam, KeyboardState oldK, KeyboardState newK, MouseState oldM, MouseState newM, List<Particle> particleList)
         {
             Random rand = new Random();
-            if (newK.IsKeyDown(Keys.W)//  && fuel > 0
+            if (newK.IsKeyDown(Keys.W)  && fuel > 0
                 )
             {
                 vel += 0.02f * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
@@ -146,10 +146,10 @@ namespace Space_Explorer
             sB.Draw(textures[3], new Vector2(25, screenH - 25), null, Color.White, 0f, new Vector2(0, 100), 1f, SpriteEffects.None, 0f);
             //Throttle Indicator
             sB.Draw(textures[2], new Rectangle(25, screenH - 27 - (int)(96 * throttle), 11, 2), Color.White);
-            //Fuel Tank
-            sB.Draw(textures[4], new Vector2(61, screenH - 25), null, Color.White, 0f, new Vector2(0, 100), 1f, SpriteEffects.None, 0f);
             //Fuel Bar
             sB.Draw(textures[5], new Vector2(61, screenH - 25 - fuel/maxFuel*100),new Rectangle(0,0, 11,(int)(fuel/maxFuel *100)), Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
+            //Fuel Tank
+            sB.Draw(textures[4], new Vector2(61, screenH - 25), null, Color.White, 0f, new Vector2(0, 100), 1f, SpriteEffects.None, 0f);
 
 
 

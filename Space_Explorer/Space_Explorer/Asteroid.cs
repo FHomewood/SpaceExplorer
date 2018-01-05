@@ -25,6 +25,7 @@ namespace Space_Explorer
             else this.loc = motherBelt.loc + (motherBelt.inRad + (float)(u) * (motherBelt.outRad - motherBelt.inRad)) * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ((float)(2 * rand.NextDouble() * Math.PI)));
             this.radius = 2f+10*(float)rand.NextDouble();
             col = Color.FromNonPremultiplied(rand.Next(50, 100), rand.Next(50, 70), rand.Next(50, 60), 255);
+
             itemDrops = new float[64];
             itemDrops[0] = 0.6f;
             itemDrops[1] = 0.3f;
@@ -43,6 +44,19 @@ namespace Space_Explorer
             itemDrops[14] = 0.001f;
             itemDrops[15] = 0.001f;
             itemDrops[16] = 0.001f;
+            int i = 0;
+            while ( i < motherBelt.Asteroids.Count())
+            {
+                if ((loc - motherBelt.Asteroids[i].loc).Length() < radius + motherBelt.Asteroids[i].Radius)
+                {
+                    u = rand.NextDouble() + rand.NextDouble();
+                    if (u > 1)
+                        this.loc = motherBelt.loc + (motherBelt.inRad + (float)(2 - u) * (motherBelt.outRad - motherBelt.inRad)) * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ((float)(2 * rand.NextDouble() * Math.PI)));
+                    else this.loc = motherBelt.loc + (motherBelt.inRad + (float)(u) * (motherBelt.outRad - motherBelt.inRad)) * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ((float)(2 * rand.NextDouble() * Math.PI)));
+                    i = -1;
+                }
+                i++;
+            }
         }
 
         public void Update()
