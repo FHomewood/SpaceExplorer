@@ -17,7 +17,7 @@ namespace Space_Explorer
         private float rotation, health = 100, Hittimer,
             camFocusZoom,camFocusRot, invScreen_loc,
             money = 0f;
-        private int screenW, screenH, invScreen_target = 0;
+        private int screenW, screenH, invScreen_target = 400;
         private Item[] Inventory = new Item[64];
 
         public Ship(Vector2 loc, int screenW, int screenH)
@@ -152,10 +152,10 @@ namespace Space_Explorer
                     //whether the inventory screen is selected or not,
                     //the seperation of each of the item points,
                     //scrolling due to cursor placement.
-                Vector2 Boxloc = new Vector2(screenW - 300 + invScreen_loc, (1+item.id) * 52 - (DrawInv.Count()+1) * 52 * Mouse.GetState().Y / (float)screenH + Mouse.GetState().Y);
-                Boxloc.X += (float)Math.Abs(Math.Pow(Boxloc.Y + 26 - Mouse.GetState().Y,3)) / (float)screenH / 2f;
+                Vector2 Boxloc = new Vector2(screenW + invScreen_loc, (1+item.id) * 52 - (DrawInv.Count()+1) * 52 * Mouse.GetState().Y / (float)screenH + Mouse.GetState().Y);
+                Boxloc.X -= 300/(float)Math.Cosh(0.01f*(Boxloc.Y  - Mouse.GetState().Y));
                 //Item box is drawn at boxloc and given an opacity related to how close the cursor is to the item
-                sB.Draw(textures[2], new Rectangle((int)Boxloc.X, (int)Boxloc.Y, 300, 50),null, Color.FromNonPremultiplied(220,220,220,(int)(255 - 255 * Math.Abs(Boxloc.Y + 26 - Mouse.GetState().Y) / (float)screenH)),
+                sB.Draw(textures[2], new Rectangle((int)Boxloc.X, (int)Boxloc.Y, 300, 50),null, Color.FromNonPremultiplied(220,220,220,(int)(255 / (float)Math.Cosh(0.01f * (Boxloc.Y - Mouse.GetState().Y)))),
                     0f, Vector2.UnitY,SpriteEffects.None,0f
                     );
                 sB.DrawString(fonts[1],
