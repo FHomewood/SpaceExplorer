@@ -16,7 +16,7 @@ namespace Space_Explorer
         private AsteroidBelt currentBelt;
         private float rotation, health = 100, Hittimer,
             camFocusZoom,camFocusRot, invScreen_loc,
-            money = 0f;
+            money = 0f, throttle, maxFuel = 1000, fuel;
         private int screenW, screenH, invScreen_target = 400;
         private Item[] Inventory = new Item[64];
 
@@ -28,12 +28,14 @@ namespace Space_Explorer
             this.closestBody = new Planet(5000 * Vector2.One, 1, 0, Color.Black);
             for (int i = 0; i < 64; i++)
                 Inventory[i] = new Item(i);
+            fuel = maxFuel;
         }
 
         public void Update(Camera cam, KeyboardState oldK, KeyboardState newK, MouseState oldM, MouseState newM, List<Particle> particleList)
         {
             Random rand = new Random();
-            if (newK.IsKeyDown(Keys.W))
+            if (newK.IsKeyDown(Keys.W)//  && fuel > 0
+                )
             {
                 vel += 0.02f * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
                 particleList.Add(
@@ -46,6 +48,7 @@ namespace Space_Explorer
                         0f
                         )
                     );
+                fuel -= 0.1f;
             }
             if (newK.IsKeyDown(Keys.S)) vel -= 0.01f * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
             if (newK.IsKeyDown(Keys.A)) rotation -= 0.05f;
@@ -66,8 +69,10 @@ namespace Space_Explorer
                             }
                         }
                     }
-                        
+
                 }
+            if (newK.IsKeyDown(Keys.LeftShift) && throttle < 1f) throttle += 0.01f;
+            if (newK.IsKeyDown(Keys.LeftControl) && throttle > 0f) throttle -= 0.01f;
             if (newK.IsKeyDown(Keys.Tab) && oldK.IsKeyUp(Keys.Tab))
                 if (invScreen_target == 0) invScreen_target = 400;
                 else invScreen_target = 0;
@@ -113,14 +118,12 @@ namespace Space_Explorer
             }
         }
 
-        public void BeltInteraction(Camera cam,KeyboardState newK, AsteroidBelt belt)
+        public void BeltInteraction(AsteroidBelt belt)
         {
-            currentBelt = null;
-            if ((loc-belt.loc).Length()>belt.inRad && (loc - belt.loc).Length() < belt.outRad)
+            if ((loc - belt.loc).Length() > belt.inRad && (loc - belt.loc).Length() < belt.outRad)
             {
                 currentBelt = belt;
             }
-            if (newK.IsKeyDown(Keys.Space)) { }
         }
 
         public void CamDraw(Camera cam, KeyboardState newK, SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
@@ -130,16 +133,28 @@ namespace Space_Explorer
                 rotation, new Vector2(textures[1].Width / 2, textures[1].Height), 0.5f / cam.Zoom, SpriteEffects.None, 0f);
             sB.Draw(textures[0], loc, null, Color.White, rotation, new Vector2(textures[0].Width / 2, textures[0].Height / 2), 0.05f/cam.Zoom, SpriteEffects.None, 0f);
             sB.DrawString(fonts[0], Math.Floor(health).ToString(), loc - Vector2.Transform(30/cam.Zoom * Vector2.UnitY, Matrix.CreateRotationZ(-cam.Rotation)), Color.Red, -cam.Rotation, fonts[0].MeasureString(Math.Floor(health).ToString())/2, 2f/cam.Zoom,SpriteEffects.None,1f);
-            for (int i = 0; i < Inventory.Length; i++)
-            {
-
-            }
         }
         public void StaticDraw(GraphicsDeviceManager graphics, SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {
+            //Damage screen
             sB.Draw(textures[0], new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), null, Color.FromNonPremultiplied(255, 0, 0, (int)(100 * (Hittimer / 100))), 0f, Vector2.Zero, SpriteEffects.None, 0.5f);
+            //Money
             sB.DrawString(fonts[0], Math.Round(money, 2).ToString(), Vector2.UnitY * screenH + Vector2.UnitX * screenW, Color.Green, 0f, fonts[0].MeasureString(Math.Round(money, 2).ToString()), 1f, SpriteEffects.None, 0f);
+            //Currency Symbol
             sB.Draw(textures[1], new Rectangle(new Vector2(screenW - fonts[0].MeasureString(Math.Round(money, 2).ToString()).X, screenH).ToPoint(), new Vector2(1+fonts[0].MeasureString(Math.Round(money, 2).ToString()).Y * textures[1].Width/textures[1].Height, fonts[0].MeasureString(Math.Round(money, 2).ToString()).Y).ToPoint()), null, Color.Green, 0f, textures[1].Bounds.Size.ToVector2(), SpriteEffects.None, 0f);
+            //Throttle Bar
+            sB.Draw(textures[3], new Vector2(25, screenH - 25), null, Color.White, 0f, new Vector2(0, 100), 1f, SpriteEffects.None, 0f);
+            //Throttle Indicator
+            sB.Draw(textures[2], new Rectangle(25, screenH - 27 - (int)(96 * throttle), 11, 2), Color.White);
+            //Fuel Tank
+            sB.Draw(textures[4], new Vector2(61, screenH - 25), null, Color.White, 0f, new Vector2(0, 100), 1f, SpriteEffects.None, 0f);
+            //Fuel Bar
+            sB.Draw(textures[5], new Vector2(61, screenH - 25 - fuel/maxFuel*100),new Rectangle(0,0, 11,(int)(fuel/maxFuel *100)), Color.White, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
+
+
+
+
+
             List<Item> DrawInv = new List<Item>();
             for (int i = 0; i < Inventory.Length; i++)
                 if (Inventory[i].amount != 0)
@@ -179,6 +194,7 @@ namespace Space_Explorer
                     13f / fonts[1].MeasureString(Math.Round(item.amount * item.mass, 2).ToString() + "kg").Y,
                     SpriteEffects.None, 0f);
             }
+            currentBelt = null;
         }
     }
 }

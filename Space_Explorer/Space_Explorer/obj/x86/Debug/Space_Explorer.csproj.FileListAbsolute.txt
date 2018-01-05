@@ -86,3 +86,8 @@ C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\Currency.xnb
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\EvenPixel.xnb
 C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\BoldArial.xnb
+C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\BackgroundParallax.xnb
+C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\BackgroundSpace.xnb
+C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\FuelBar.xnb
+C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\FuelTank.xnb
+C:\Users\Chikan\Documents\GitHub\SpaceExplorer\Space_Explorer\Space_Explorer\bin\Windows\x86\Debug\Content\ThrottleSlider.xnb
