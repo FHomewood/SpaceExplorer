@@ -40,7 +40,7 @@ namespace Space_Explorer
             cam = new Camera(GraphicsDevice.Viewport);
             screenH = graphics.PreferredBackBufferHeight;
             screenW = graphics.PreferredBackBufferWidth;
-            shipList.Add(new Ship(new Vector2(screenW / 2, screenH / 2),screenW,screenH));
+            shipList.Add(new Ship(new Vector2(0,-700),screenW,screenH));
             oldK = Keyboard.GetState();
             oldM = Mouse.GetState();
 

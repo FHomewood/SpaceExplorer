@@ -37,7 +37,7 @@ namespace Space_Explorer
             if (newK.IsKeyDown(Keys.W)  && fuel > 0
                 )
             {
-                vel += 0.02f * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
+                vel += 0.02f * throttle * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
                 particleList.Add(
                     new Particle(
                         loc - 6/cam.Zoom * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation)),
