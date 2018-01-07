@@ -14,13 +14,18 @@ namespace Space_Explorer
         List<Asteroid> asteroidList = new List<Asteroid>();
         public float inRad, outRad;
         float area;
+        public int[] itemIDDrops;
+        public float[] percent, uncertainty;
 
-        public AsteroidBelt(Vector2 loc, float inRad, float outRad)
+        public AsteroidBelt(Vector2 loc, float inRad, float outRad, int[] itemIDDrops, float[] percent, float[] uncertainty)
         {
             this.loc = loc;
             this.inRad = inRad;
             this.outRad = outRad;
             area = MathHelper.Pi * (outRad * outRad - inRad * inRad);
+            this.itemIDDrops = itemIDDrops;
+            this.percent = percent;
+            this.uncertainty = uncertainty;
         }
 
         public void Update()

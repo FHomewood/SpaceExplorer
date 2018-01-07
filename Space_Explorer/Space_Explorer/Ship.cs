@@ -15,8 +15,9 @@ namespace Space_Explorer
         private Planet closestBody;
         private AsteroidBelt currentBelt;
         private float rotation, health = 100, Hittimer,
-            camFocusZoom,camFocusRot, invScreen_loc,
-            money = 0f, throttle, maxFuel = 1000, fuel;
+            camFocusZoom, camFocusRot, invScreen_loc,
+            money = 0f, throttle, maxFuel = 1000, fuel,
+            cargoCapacity = 1;
         private int screenW, screenH, invScreen_target = 400;
         private Item[] Inventory = new Item[64];
 
@@ -48,7 +49,7 @@ namespace Space_Explorer
                         0f
                         )
                     );
-                fuel -= 0.1f;
+                fuel -= throttle * 0.1f;
             }
             if (newK.IsKeyDown(Keys.S)) vel -= 0.01f * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
             if (newK.IsKeyDown(Keys.A)) rotation -= 0.05f;
@@ -63,15 +64,19 @@ namespace Space_Explorer
                         {
                             asteroid.Radius -= 0.03f;
                             money += (float)(Math.Pow(asteroid.Radius + 0.03f, 2) - Math.Pow(asteroid.Radius, 2))/1000f;
-                            for (int i = 0; i < Inventory.Length; i++)
-                            {
-                                Inventory[i].amount += asteroid.ItemDrops[i] * (float)(Math.Pow(asteroid.Radius + 0.03f, 2) - Math.Pow(asteroid.Radius, 2)) / 1000f;
-                            }
+                            float cargo = 0;
+                            foreach (Item item in Inventory) cargo += item.amount;
+                            if (cargoCapacity > cargo)
+                                for (int i = 0; i < Inventory.Length; i++)
+                                {
+                                    if (cargoCapacity > cargo)
+                                        Inventory[i].amount += asteroid.ItemDrops[i] * (float)(Math.Pow(asteroid.Radius + 0.03f, 2) - Math.Pow(asteroid.Radius, 2)) / 1000f;
+                                }
                         }
                     }
 
                 }
-            if (newK.IsKeyDown(Keys.LeftShift) && throttle < 1f) throttle += 0.01f;
+            if (newK.IsKeyDown(Keys.LeftShift) && throttle < 1f)   throttle += 0.01f;
             if (newK.IsKeyDown(Keys.LeftControl) && throttle > 0f) throttle -= 0.01f;
             if (newK.IsKeyDown(Keys.Tab) && oldK.IsKeyUp(Keys.Tab))
                 if (invScreen_target == 0) invScreen_target = 400;

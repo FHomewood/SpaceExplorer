@@ -25,25 +25,15 @@ namespace Space_Explorer
             else this.loc = motherBelt.loc + (motherBelt.inRad + (float)(u) * (motherBelt.outRad - motherBelt.inRad)) * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ((float)(2 * rand.NextDouble() * Math.PI)));
             this.radius = 2f+10*(float)rand.NextDouble();
             col = Color.FromNonPremultiplied(rand.Next(50, 100), rand.Next(50, 70), rand.Next(50, 60), 255);
-
+            
             itemDrops = new float[64];
-            itemDrops[0] = 0.6f;
-            itemDrops[1] = 0.3f;
-            itemDrops[2] = 0.05f;
-            //itemDrops[3] = 0.01f;
-            //itemDrops[4] = 0.01f;
-            //itemDrops[5] = 0.01f;
-            //itemDrops[6] = 0.01f;
-            //itemDrops[7] = 0.001f;
-            //itemDrops[8] = 0.001f;
-            //itemDrops[9] = 0.001f;
-            //itemDrops[10] = 0.001f;
-            //itemDrops[11] = 0.001f;
-            //itemDrops[12] = 0.001f;
-            //itemDrops[13] = 0.001f;
-            //itemDrops[14] = 0.001f;
-            //itemDrops[15] = 0.001f;
-            //itemDrops[16] = 0.001f;
+            float percentRemainder = 1;
+            for(int j = motherBelt.itemIDDrops.Length-1; j > 0; j--)
+            {
+                itemDrops[j] = motherBelt.percent[j] + 2f*((float)rand.NextDouble() - 0.5f) * motherBelt.uncertainty[j];
+                percentRemainder -= itemDrops[j];
+            }
+            itemDrops[0] = percentRemainder;
             int i = 0;
             while ( i < motherBelt.Asteroids.Count())
             {

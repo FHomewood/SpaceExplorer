@@ -68,9 +68,13 @@ namespace Space_Explorer
             planetList.Add(new Planet(Vector2.Zero, 50, 100, Color.Gray, new float[] { 20000, 1000 }, new float[] { 600, 50 }, new float[] { 0, 0 })); //
 
             //Asteroid Belts
-            beltList.Add(new AsteroidBelt(Vector2.Zero, 1070, 1400));
-            beltList.Add(new AsteroidBelt(Vector2.Zero, 1000, 1050));
-        }
+            beltList.Add(new AsteroidBelt(Vector2.Zero, 1070, 1400, new int[]   { 1    , 2    , 3    , 4    , 5    , 6    , 7    , 8    , 9    , 10   , 11   , 12   , 13   , 14   , 15   , 16   , 17   , 18   , 19   , 20   , 21   , 22   , 23   , 24    },
+                                                                    new float[] { 0.15f, 0.05f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f },
+                                                                    new float[] { 0.5f , 0.05f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f }));
+            beltList.Add(new AsteroidBelt(Vector2.Zero, 1000, 1050, new int[]   { 1    , 2    , 3    , 4    , 5    , 6    , 7    , 8    , 9    , 10   , 11   , 12   , 13   , 14   , 15   , 16   , 17   , 18   , 19   , 20   , 21   , 22   , 23   , 24    },
+                                                                    new float[] { 0.15f, 0.05f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f },
+                                                                    new float[] { 0.5f , 0.05f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f }));
+            }
         protected override void LoadContent()
         {
             sB = new SpriteBatch(GraphicsDevice);
