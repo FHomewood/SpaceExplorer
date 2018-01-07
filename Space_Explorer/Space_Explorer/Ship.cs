@@ -18,7 +18,7 @@ namespace Space_Explorer
         private float rotation, health = 100, Hittimer,
             camFocusZoom, camFocusRot, invScreen_loc,
             money = 0f, throttle, maxFuel = 1000, fuel,
-            cargoCapacity = 1;
+            cargoCapacity = 1000;
         private int screenW, screenH, invScreen_target = 400;
         private Item[] Inventory = new Item[64];
 
@@ -48,9 +48,7 @@ namespace Space_Explorer
                         Color.FromNonPremultiplied(rand.Next(200, 255), rand.Next(100, 200), rand.Next(0, 100), 255),
                         50,
                         3/cam.Zoom,
-                        0f
-                        )
-                    );
+                        0f));
                 fuel -= throttle * 0.1f;
             }
             if (newK.IsKeyDown(Keys.S)) vel -= 0.01f * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
@@ -71,7 +69,7 @@ namespace Space_Explorer
                             if (cargoCapacity > cargo)
                                 for (int i = 0; i < Inventory.Length; i++)
                                     if (cargoCapacity > cargo)
-                                        Inventory[i].amount += asteroid.ItemDrops[i] * (float)(Math.Pow(asteroid.Radius + 0.03f, 2) - Math.Pow(asteroid.Radius, 2)) / 1000f;
+                                        Inventory[i].amount += 100 * asteroid.ItemDrops[i] * (float)(Math.Pow(asteroid.Radius + 0.03f, 2) - Math.Pow(asteroid.Radius, 2)) / 1000f;
                         }
                     }
                 }
@@ -185,28 +183,23 @@ namespace Space_Explorer
                 Vector2 Boxloc = new Vector2(screenW + invScreen_loc, (1+item.id) * 52 - (DrawInv.Count()+1) * 52 * Mouse.GetState().Y / (float)screenH + Mouse.GetState().Y);
                 Boxloc.X -= 300/(float)Math.Cosh(0.01f*(Boxloc.Y  - Mouse.GetState().Y));
                 //Item box is drawn at boxloc and given an opacity related to how close the cursor is to the item
-                sB.Draw(textures[2], new Rectangle((int)Boxloc.X, (int)Boxloc.Y, 300, 50),null, Color.FromNonPremultiplied(220,220,220,(int)(255 / (float)Math.Cosh(0.01f * (Boxloc.Y - Mouse.GetState().Y)))),
+                sB.Draw(textures[2], new Rectangle((int)Boxloc.X, (int)Boxloc.Y, 300, 50),null, Color.FromNonPremultiplied(255,255,255,(int)(128 / (float)Math.Cosh(0.02f * (Boxloc.Y - Mouse.GetState().Y)))),
                     0f, Vector2.UnitY,SpriteEffects.None,0f
                     );
                 sB.DrawString(fonts[1],
-                    item.name, new Vector2(Boxloc.X + 10, Boxloc.Y - 15),
+                    item.name, new Vector2(Boxloc.X + 15, Boxloc.Y - 20),
                     Color.Black, 0f, Vector2.Zero,
-                    16f / fonts[1].MeasureString(item.name).Y,
+                    18f / fonts[1].MeasureString(item.name).Y,
                     SpriteEffects.None, 0f);
                 sB.DrawString(fonts[1],
                     item.desc, new Vector2(Boxloc.X + 15, Boxloc.Y),
                     Color.Black, 0f, Vector2.Zero,
-                    13f / fonts[1].MeasureString(item.desc).Y,
-                    SpriteEffects.None, 0f);
-                sB.DrawString(fonts[1], Math.Round(item.value, 2).ToString(),
-                    new Vector2(Boxloc.X + 290, Boxloc.Y - 15),
-                    Color.Green, 0f, new Vector2(fonts[1].MeasureString(Math.Round(item.value, 2).ToString()).X, 0),
-                    13f / fonts[1].MeasureString(Math.Round(item.value, 2).ToString()).Y,
+                    14f / fonts[1].MeasureString(item.desc).Y,
                     SpriteEffects.None, 0f);
                 sB.DrawString(fonts[1],
-                    Math.Round(item.amount * item.mass, 2).ToString() + "kg", new Vector2(Boxloc.X + 290, Boxloc.Y),
+                    Math.Round(item.amount * item.mass, 2).ToString() + "kg", new Vector2(Boxloc.X + 280, Boxloc.Y),
                     Color.Black, 0f, new Vector2(fonts[1].MeasureString(Math.Round(item.amount * item.mass, 2).ToString() + "kg").X, 0),
-                    13f / fonts[1].MeasureString(Math.Round(item.amount * item.mass, 2).ToString() + "kg").Y,
+                    14f / fonts[1].MeasureString(Math.Round(item.amount * item.mass, 2).ToString() + "kg").Y,
                     SpriteEffects.None, 0f);
             }
             currentBelt = null;
