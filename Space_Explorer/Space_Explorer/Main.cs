@@ -17,7 +17,7 @@ namespace Space_Explorer
             texBackParallax, texBackground, texFuelTank, texFuelBar;
         SpriteFont fontDebug, fontBoldArial;
         Camera cam;
-        int screenW, screenH;
+        int screenW, screenH, frames, fps;
         float elapsedTime;
 
         List<Planet> planetList = new List<Planet>();
@@ -100,7 +100,10 @@ namespace Space_Explorer
         {
             newK = Keyboard.GetState();
             newM = Mouse.GetState();
+            float oldtime = elapsedTime;
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            frames++;
+            if (elapsedTime % 1 < oldtime % 1) { fps = frames; frames = 0; }
             if (particleList.Count > 50) particleList.Remove(particleList[0]);
 
             foreach (Particle particle in particleList) particle.Update();
@@ -137,7 +140,8 @@ namespace Space_Explorer
             foreach (Ship ship in shipList)
                 ship.StaticDraw(graphics, sB, new Texture2D[] { texVignette, texCurrency, texPixel,texThrottleSlider,texFuelTank, texFuelBar }, new SpriteFont[] { fontDebug, fontBoldArial });
             sB.DrawString(fontDebug, "Elapsed Time: " + elapsedTime.ToString() + "s", Vector2.Zero, Color.White);
-                sB.End();
+            sB.DrawString(fontDebug, "FPS: " + fps.ToString(),14* Vector2.UnitY, Color.White);
+            sB.End();
 
             base.Draw(gameTime);
         }

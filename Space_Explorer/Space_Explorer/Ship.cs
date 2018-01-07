@@ -14,6 +14,7 @@ namespace Space_Explorer
         private Vector2 loc, vel, camFocusLoc;
         private Planet closestBody;
         private AsteroidBelt currentBelt;
+        private bool landed;
         private float rotation, health = 100, Hittimer,
             camFocusZoom, camFocusRot, invScreen_loc,
             money = 0f, throttle, maxFuel = 1000, fuel,
@@ -38,6 +39,7 @@ namespace Space_Explorer
             if (newK.IsKeyDown(Keys.W)  && fuel > 0
                 )
             {
+                landed = false;
                 vel += 0.02f * throttle * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
                 particleList.Add(
                     new Particle(
@@ -68,13 +70,10 @@ namespace Space_Explorer
                             foreach (Item item in Inventory) cargo += item.amount;
                             if (cargoCapacity > cargo)
                                 for (int i = 0; i < Inventory.Length; i++)
-                                {
                                     if (cargoCapacity > cargo)
                                         Inventory[i].amount += asteroid.ItemDrops[i] * (float)(Math.Pow(asteroid.Radius + 0.03f, 2) - Math.Pow(asteroid.Radius, 2)) / 1000f;
-                                }
                         }
                     }
-
                 }
             if (newK.IsKeyDown(Keys.LeftShift) && throttle < 1f)   throttle += 0.01f;
             if (newK.IsKeyDown(Keys.LeftControl) && throttle > 0f) throttle -= 0.01f;
@@ -84,9 +83,17 @@ namespace Space_Explorer
             invScreen_loc += (invScreen_target - invScreen_loc) / 5;
             loc += vel;
 
+            //Order Priorities of camera focus
+            if (landed) camFocusLoc = closestBody.Loc;
+            else camFocusLoc = loc;
 
-            camFocusLoc = loc;
-            if (currentBelt != null)
+            //Order priorities of Zoom and Focus
+            if (landed)
+            {
+                camFocusZoom = screenH / 4 / (closestBody.Loc - loc).Length();
+                camFocusRot = -MathHelper.PiOver2 - (float)Math.Atan2((loc - closestBody.Loc).Y, (loc - closestBody.Loc).X);
+            }
+            else if (currentBelt != null)
             {
                 camFocusZoom = screenH / 250f;
                 camFocusRot = -rotation;
@@ -97,11 +104,14 @@ namespace Space_Explorer
                 camFocusRot = -MathHelper.PiOver2 - (float)Math.Atan2((loc - closestBody.Loc).Y, (loc - closestBody.Loc).X);
             }
 
+            //apply smoother transitions.
             cam.X += (camFocusLoc.X - cam.X) / 20;
             cam.Y += (camFocusLoc.Y - cam.Y) / 20;
             cam.Zoom += (camFocusZoom - cam.Zoom) / 20;
             float RotDifference = ((camFocusRot - cam.Rotation) % MathHelper.TwoPi);
             cam.Rotation += RotDifference / 20;
+
+            //Update death checks and hit graphics
             if (health < 0) { health = 0; }
             if (Hittimer > 0) { Hittimer--; }
         }
@@ -117,7 +127,7 @@ namespace Space_Explorer
                 Vector2 perpendicular = Vector2.Transform(parallel, Matrix.CreateRotationZ(-MathHelper.PiOver2));
                 vel = perpendicular * Vector2.Dot(perpendicular, vel) - parallel * Vector2.Dot(parallel, vel);
                 if (vel.Length() > 0.5f) { health -= vel.Length() * 10; Hittimer = 100; }
-                if (vel.Length() < 0.1f) { vel = Vector2.Zero; }
+                if (vel.Length() < 0.1f) { vel = Vector2.Zero; landed = true; }
                 vel /= 1.5f;
                 loc += (difference.Length() - planet.Radius - 10f / cam.Zoom) * difference / difference.Length();
             }
