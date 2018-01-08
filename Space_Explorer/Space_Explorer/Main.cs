@@ -28,8 +28,8 @@ namespace Space_Explorer
         public Main()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
             graphics.IsFullScreen = false;
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
@@ -130,7 +130,7 @@ namespace Space_Explorer
             foreach (Particle particle in particleList) particle.Draw(sB, new Texture2D[] { texCircle }, new SpriteFont[] { });
             foreach (Planet planet in planetList) planet.Draw(sB, new Texture2D[] { texMarkedCircle }, new SpriteFont[] { });
             foreach (AsteroidBelt belt in beltList) belt.OverDraw(sB, new Texture2D[] { texCircle }, new SpriteFont[] { fontDebug });
-            foreach (Ship ship in shipList) ship.CamDraw(cam, newK, sB, new Texture2D[] { texShip, texSector }, new SpriteFont[] { fontDebug });
+            foreach (Ship ship in shipList) ship.CamDraw(cam, newK, sB, new Texture2D[] { texShip, texSector }, new SpriteFont[] { fontBoldArial });
             if (newK.IsKeyDown(Keys.Enter))
             { }
             sB.End();
@@ -139,8 +139,8 @@ namespace Space_Explorer
             sB.Begin();
             foreach (Ship ship in shipList)
                 ship.StaticDraw(graphics, sB, new Texture2D[] { texVignette, texCurrency, texPixel,texThrottleSlider,texFuelTank, texFuelBar }, new SpriteFont[] { fontDebug, fontBoldArial });
-            sB.DrawString(fontDebug, "Elapsed Time: " + elapsedTime.ToString() + "s", Vector2.Zero, Color.White);
-            sB.DrawString(fontDebug, "FPS: " + fps.ToString(),14* Vector2.UnitY, Color.White);
+            //sB.DrawString(fontDebug, "Elapsed Time: " + elapsedTime.ToString() + "s", Vector2.Zero, Color.White);
+            //sB.DrawString(fontDebug, "FPS: " + fps.ToString(),14* Vector2.UnitY, Color.White);
             sB.End();
 
             base.Draw(gameTime);

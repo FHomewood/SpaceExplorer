@@ -145,7 +145,7 @@ namespace Space_Explorer
                 sB.Draw(textures[1], loc, null, Color.FromNonPremultiplied(0,new Random().Next(50,150),new Random().Next(150,200), 100),
                 rotation, new Vector2(textures[1].Width / 2, textures[1].Height), 0.5f / cam.Zoom, SpriteEffects.None, 0f);
             sB.Draw(textures[0], loc, null, Color.White, rotation, new Vector2(textures[0].Width / 2, textures[0].Height / 2), 0.05f/cam.Zoom, SpriteEffects.None, 0f);
-            sB.DrawString(fonts[0], Math.Floor(health).ToString(), loc - Vector2.Transform(30/cam.Zoom * Vector2.UnitY, Matrix.CreateRotationZ(-cam.Rotation)), Color.Red, -cam.Rotation, fonts[0].MeasureString(Math.Floor(health).ToString())/2, 2f/cam.Zoom,SpriteEffects.None,1f);
+            sB.DrawString(fonts[0], Math.Floor(health).ToString(), loc - Vector2.Transform(15/cam.Zoom * Vector2.UnitY, Matrix.CreateRotationZ(-cam.Rotation)), Color.Red, -cam.Rotation, fonts[0].MeasureString(Math.Floor(health).ToString())/2, 20f/ fonts[0].MeasureString(Math.Floor(health).ToString()).Y/ cam.Zoom,SpriteEffects.None,1f);
         }
         public void StaticDraw(GraphicsDeviceManager graphics, SpriteBatch sB, Texture2D[] textures, SpriteFont[] fonts)
         {
