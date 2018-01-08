@@ -3,7 +3,7 @@
 
 Space Explorer is a Work-In-Progress game developed in C# using the MonoGame (XNA) framework.
 
-<img src="https://i.imgur.com/UjCQv4P.gif">
+![]("https://i.imgur.com/UjCQv4P.gif")
 
 It's a top down space exploration game in which the user plays a mining droid that travels through space using orbital mechanics to safely maneuver to different gravitational bodies. 
 
