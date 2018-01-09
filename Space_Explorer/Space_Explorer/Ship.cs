@@ -87,6 +87,12 @@ namespace Space_Explorer
                 else invScreen_target = 0;
             invScreen_loc += (invScreen_target - invScreen_loc) / 5;
             loc += vel;
+            if (landed)
+            {
+                loc = closestBody.Radius * -Vector2.UnitY;
+                for (int i = 0; i < closestBody.Orbrad.Length; i++)
+                    loc += closestBody.Orbrad[i] * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ(MathHelper.TwoPi * elapsedTime / closestBody.TPeriod[i] + closestBody.Phase[i]));
+            }
 
             //Order Priorities of camera focus
             if (landed) camFocusLoc = closestBody.Loc;
