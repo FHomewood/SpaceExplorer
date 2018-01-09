@@ -51,6 +51,11 @@ namespace Space_Explorer
             get { return loc; }
             set { loc = value; }
         }
+        public Vector2 OrbLoc
+        {
+            get { return orbloc; }
+            set { orbloc = value; }
+        }
         public float Radius
         {
             get { return rad; }
@@ -60,6 +65,21 @@ namespace Space_Explorer
         {
             get { return mass; }
             set { mass = value; }
+        }
+        public float[] TPeriod
+        {
+            get { return tPeriod; }
+            set { tPeriod = value; }
+        }
+        public float[] Orbrad
+        {
+            get { return orbrad; }
+            set { orbrad = value; }
+        }
+        public float[] Phase
+        {
+            get { return phase; }
+            set { phase = value; }
         }
     }
 }

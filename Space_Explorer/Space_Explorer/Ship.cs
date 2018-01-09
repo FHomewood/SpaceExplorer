@@ -33,13 +33,20 @@ namespace Space_Explorer
             fuel = maxFuel;
         }
 
-        public void Update(Camera cam, KeyboardState oldK, KeyboardState newK, MouseState oldM, MouseState newM, List<Particle> particleList)
+        public void Update(Camera cam, KeyboardState oldK, KeyboardState newK, MouseState oldM, MouseState newM, List<Particle> particleList, float elapsedTime)
         {
             Random rand = new Random();
             if (newK.IsKeyDown(Keys.W)  && fuel > 0
                 )
             {
-                landed = false;
+                if (landed)
+                {
+                    landed = false;
+                    vel = Vector2.Zero;
+                    for (int i = 0; i < closestBody.Orbrad.Length; i++)
+                        vel += closestBody.Orbrad[i] *MathHelper.TwoPi/closestBody.TPeriod[i]/60* Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ(MathHelper.TwoPi * elapsedTime / closestBody.TPeriod[i] + closestBody.Phase[i]));
+
+                }
                 vel += 0.02f * throttle * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
                 particleList.Add(
                     new Particle(
@@ -183,9 +190,8 @@ namespace Space_Explorer
                 Vector2 Boxloc = new Vector2(screenW + invScreen_loc, (1+item.id) * 52 - (DrawInv.Count()+1) * 52 * Mouse.GetState().Y / (float)screenH + Mouse.GetState().Y);
                 Boxloc.X -= 300/(float)Math.Cosh(0.01f*(Boxloc.Y  - Mouse.GetState().Y));
                 //Item box is drawn at boxloc and given an opacity related to how close the cursor is to the item
-                sB.Draw(textures[2], new Rectangle((int)Boxloc.X, (int)Boxloc.Y, 300, 50),null, Color.FromNonPremultiplied(255,255,255,(int)(128 / (float)Math.Cosh(0.02f * (Boxloc.Y - Mouse.GetState().Y)))),
-                    0f, Vector2.UnitY,SpriteEffects.None,0f
-                    );
+                sB.Draw(textures[2], new Rectangle((int)Boxloc.X, (int)Boxloc.Y, 300, 50), null, Color.FromNonPremultiplied(255, 255, 255, (int)(128 / (float)Math.Cosh(0.02f * (Boxloc.Y - Mouse.GetState().Y)))),
+                    0f, Vector2.UnitY, SpriteEffects.None, 0f);
                 sB.DrawString(fonts[1],
                     item.name, new Vector2(Boxloc.X + 15, Boxloc.Y - 20),
                     Color.Black, 0f, Vector2.Zero,

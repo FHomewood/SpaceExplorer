@@ -62,6 +62,7 @@ namespace Space_Explorer
             //Define Map
             //Planets
             planetList.Add(new Planet(Vector2.Zero, 700, 1400, Color.Goldenrod)); //Sun
+            planetList.Add(new Planet(Vector2.Zero, 100, 200, Color.Brown, new float[] { 1200 }, new float[] { 100 }, new float[] { MathHelper.PiOver2*3 }));
             planetList.Add(new Planet(Vector2.Zero, 100, 200, Color.Brown, new float[] { 5000 }, new float[] { 200 }, new float[] { 0 })); //
             planetList.Add(new Planet(Vector2.Zero, 150, 300, Color.Purple, new float[] { 10000 }, new float[] { 300 }, new float[] { 0 })); //
             planetList.Add(new Planet(Vector2.Zero, 200, 400, Color.ForestGreen, new float[] { 20000 }, new float[] { 600 }, new float[] { 0 })); //
@@ -114,7 +115,7 @@ namespace Space_Explorer
             {
                 foreach (Planet planet in planetList) ship.PlanetInteraction(cam, (float)gameTime.ElapsedGameTime.TotalSeconds, planet);
                 foreach (AsteroidBelt belt in beltList) ship.BeltInteraction(belt);
-                ship.Update(cam,oldK, newK, oldM, newM, particleList);
+                ship.Update(cam,oldK, newK, oldM, newM, particleList, elapsedTime);
             }
             oldK = newK;
             oldM = newM;
