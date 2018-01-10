@@ -45,7 +45,6 @@ namespace Space_Explorer
                     vel = Vector2.Zero;
                     for (int i = 0; i < closestBody.Orbrad.Length; i++)
                         vel += closestBody.Orbrad[i] *MathHelper.TwoPi/closestBody.TPeriod[i]/60* Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ(MathHelper.TwoPi * elapsedTime / closestBody.TPeriod[i] + closestBody.Phase[i]));
-
                 }
                 vel += 0.02f * throttle * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
                 particleList.Add(
@@ -58,7 +57,11 @@ namespace Space_Explorer
                         0f));
                 fuel -= throttle * 0.1f;
             }
-            if (newK.IsKeyDown(Keys.S)) vel -= 0.01f * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
+            if (newK.IsKeyDown(Keys.S))
+            {
+                vel -= throttle * 0.005f * Vector2.Transform(-Vector2.UnitY, Matrix.CreateRotationZ(rotation));
+                fuel -= throttle * 0.05f;
+            }
             if (newK.IsKeyDown(Keys.A)) rotation -= 0.05f;
             if (newK.IsKeyDown(Keys.D)) rotation += 0.05f;
             if (newK.IsKeyDown(Keys.Space) && currentBelt != null) 
@@ -87,12 +90,12 @@ namespace Space_Explorer
                 else invScreen_target = 0;
             invScreen_loc += (invScreen_target - invScreen_loc) / 5;
             loc += vel;
-            if (landed)
-            {
-                loc = closestBody.Radius * -Vector2.UnitY;
-                for (int i = 0; i < closestBody.Orbrad.Length; i++)
-                    loc += closestBody.Orbrad[i] * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ(MathHelper.TwoPi * elapsedTime / closestBody.TPeriod[i] + closestBody.Phase[i]));
-            }
+            //if (landed)
+            //{
+            //    loc = closestBody.Radius * -Vector2.UnitY;
+            //    for (int i = 0; i < closestBody.Orbrad.Length; i++)
+            //        loc += closestBody.Orbrad[i] * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ(MathHelper.TwoPi * elapsedTime / closestBody.TPeriod[i] + closestBody.Phase[i]));
+            //}
 
             //Order Priorities of camera focus
             if (landed) camFocusLoc = closestBody.Loc;
@@ -127,7 +130,7 @@ namespace Space_Explorer
             if (Hittimer > 0) { Hittimer--; }
         }
 
-        public void PlanetInteraction(Camera cam, float frametime, Planet planet)
+        public void PlanetInteraction(Camera cam, float frametime, Planet planet, float elapsedTime)
         {
             Vector2 difference = (planet.Loc - loc);
             if (difference.Length() < (closestBody.Loc - loc).Length()) closestBody = planet;
@@ -137,6 +140,9 @@ namespace Space_Explorer
                 Vector2 parallel      = difference / difference.Length();
                 Vector2 perpendicular = Vector2.Transform(parallel, Matrix.CreateRotationZ(-MathHelper.PiOver2));
                 vel = perpendicular * Vector2.Dot(perpendicular, vel) - parallel * Vector2.Dot(parallel, vel);
+                for (int i = 0; i < closestBody.Orbrad.Length; i++)
+                    vel += planet.Orbrad[i] * MathHelper.TwoPi / planet.TPeriod[i] / 60 * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ(MathHelper.TwoPi * elapsedTime / planet.TPeriod[i] + planet.Phase[i]));
+
                 if (vel.Length() > 0.5f) { health -= vel.Length() * 10; Hittimer = 100; }
                 if (vel.Length() < 0.1f) { vel = Vector2.Zero; landed = true; }
                 vel /= 1.5f;
@@ -194,7 +200,7 @@ namespace Space_Explorer
                     //the seperation of each of the item points,
                     //scrolling due to cursor placement.
                 Vector2 Boxloc = new Vector2(screenW + invScreen_loc, (1+item.id) * 52 - (DrawInv.Count()+1) * 52 * Mouse.GetState().Y / (float)screenH + Mouse.GetState().Y);
-                Boxloc.X -= 300/(float)Math.Cosh(0.01f*(Boxloc.Y  - Mouse.GetState().Y));
+                Boxloc.X -= 300f/(float)Math.Cosh(0.01f*(Boxloc.Y  - Mouse.GetState().Y));
                 //Item box is drawn at boxloc and given an opacity related to how close the cursor is to the item
                 sB.Draw(textures[2], new Rectangle((int)Boxloc.X, (int)Boxloc.Y, 300, 50), null, Color.FromNonPremultiplied(255, 255, 255, (int)(128 / (float)Math.Cosh(0.02f * (Boxloc.Y - Mouse.GetState().Y)))),
                     0f, Vector2.UnitY, SpriteEffects.None, 0f);

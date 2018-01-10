@@ -62,12 +62,12 @@ namespace Space_Explorer
             //Define Map
             //Planets
             planetList.Add(new Planet(Vector2.Zero, 700, 1400, Color.Goldenrod)); //Sun
-            planetList.Add(new Planet(Vector2.Zero, 100, 200, Color.Brown, new float[] { 1200 }, new float[] { 100 }, new float[] { MathHelper.PiOver2*3 }));
+            planetList.Add(new Planet(Vector2.Zero, 100, 200, Color.Brown, new float[] { 1600 }, new float[] { (float)1E3 }, new float[] { MathHelper.PiOver2*3 }));
             planetList.Add(new Planet(Vector2.Zero, 100, 200, Color.Brown, new float[] { 5000 }, new float[] { 200 }, new float[] { 0 })); //
             planetList.Add(new Planet(Vector2.Zero, 150, 300, Color.Purple, new float[] { 10000 }, new float[] { 300 }, new float[] { 0 })); //
             planetList.Add(new Planet(Vector2.Zero, 200, 400, Color.ForestGreen, new float[] { 20000 }, new float[] { 600 }, new float[] { 0 })); //
             planetList.Add(new Planet(Vector2.Zero, 50, 100, Color.Gray, new float[] { 20000, 1000 }, new float[] { 600, 50 }, new float[] { 0, 0 })); //
-
+            
             //Asteroid Belts
             beltList.Add(new AsteroidBelt(Vector2.Zero, 1070, 1400, new int[]   { 1    , 2    , 3    , 4    , 5    , 6    , 7    , 8    , 9    , 10   , 11   , 12   , 13   , 14   , 15   , 16   , 17   , 18   , 19   , 20   , 21   , 22   , 23   , 24    },
                                                                     new float[] { 0.15f, 0.05f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f },
@@ -113,7 +113,7 @@ namespace Space_Explorer
             cam.Update();
             foreach (Ship ship in shipList)
             {
-                foreach (Planet planet in planetList) ship.PlanetInteraction(cam, (float)gameTime.ElapsedGameTime.TotalSeconds, planet);
+                foreach (Planet planet in planetList) ship.PlanetInteraction(cam, (float)gameTime.ElapsedGameTime.TotalSeconds, planet, elapsedTime);
                 foreach (AsteroidBelt belt in beltList) ship.BeltInteraction(belt);
                 ship.Update(cam,oldK, newK, oldM, newM, particleList, elapsedTime);
             }
@@ -139,9 +139,9 @@ namespace Space_Explorer
 
             sB.Begin();
             foreach (Ship ship in shipList)
-                ship.StaticDraw(graphics, sB, new Texture2D[] { texVignette, texCurrency, texPixel,texThrottleSlider,texFuelTank, texFuelBar }, new SpriteFont[] { fontDebug, fontBoldArial });
-            //sB.DrawString(fontDebug, "Elapsed Time: " + elapsedTime.ToString() + "s", Vector2.Zero, Color.White);
-            //sB.DrawString(fontDebug, "FPS: " + fps.ToString(),14* Vector2.UnitY, Color.White);
+                ship.StaticDraw(graphics, sB, new Texture2D[] { texVignette, texCurrency, texPixel, texThrottleSlider, texFuelTank, texFuelBar }, new SpriteFont[] { fontDebug, fontBoldArial });
+            sB.DrawString(fontDebug, "Elapsed Time: " + elapsedTime.ToString() + "s", Vector2.Zero, Color.White);
+            sB.DrawString(fontDebug, "FPS: " + fps.ToString(), 14 * Vector2.UnitY, Color.White);
             sB.End();
 
             base.Draw(gameTime);
