@@ -11,7 +11,7 @@ namespace Space_Explorer
 {
     class Ship
     {
-        private Vector2 loc, vel, camFocusLoc;
+        private Vector2 loc, vel, camFocusLoc, landedLoc;
         private Planet closestBody;
         private AsteroidBelt currentBelt;
         private bool landed;
@@ -90,12 +90,12 @@ namespace Space_Explorer
                 else invScreen_target = 0;
             invScreen_loc += (invScreen_target - invScreen_loc) / 5;
             loc += vel;
-            //if (landed)
-            //{
-            //    loc = closestBody.Radius * -Vector2.UnitY;
-            //    for (int i = 0; i < closestBody.Orbrad.Length; i++)
-            //        loc += closestBody.Orbrad[i] * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ(MathHelper.TwoPi * elapsedTime / closestBody.TPeriod[i] + closestBody.Phase[i]));
-            //}
+            if (landed)
+            {
+                loc = closestBody.Loc + (closestBody.Radius+ 10f) * landedLoc/landedLoc.Length();
+                for (int i = 0; i < closestBody.Orbrad.Length; i++)
+                    loc += closestBody.Orbrad[i] * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ(MathHelper.TwoPi * elapsedTime / closestBody.TPeriod[i] + closestBody.Phase[i]));
+            }
 
             //Order Priorities of camera focus
             if (landed) camFocusLoc = closestBody.Loc;
@@ -135,7 +135,7 @@ namespace Space_Explorer
             Vector2 difference = (planet.Loc - loc);
             if (difference.Length() < (closestBody.Loc - loc).Length()) closestBody = planet;
             vel += difference * planet.Mass * (float)Math.Pow(difference.Length(), -3);
-            if (difference.Length() < planet.Radius + 10f/cam.Zoom)
+            if (difference.Length() < planet.Radius + 10f)
             {
                 Vector2 parallel      = difference / difference.Length();
                 Vector2 perpendicular = Vector2.Transform(parallel, Matrix.CreateRotationZ(-MathHelper.PiOver2));
@@ -144,9 +144,9 @@ namespace Space_Explorer
                     vel += planet.Orbrad[i] * MathHelper.TwoPi / planet.TPeriod[i] / 60 * Vector2.Transform(Vector2.UnitY, Matrix.CreateRotationZ(MathHelper.TwoPi * elapsedTime / planet.TPeriod[i] + planet.Phase[i]));
 
                 if (vel.Length() > 0.5f) { health -= vel.Length() * 10; Hittimer = 100; }
-                if (vel.Length() < 0.1f) { vel = Vector2.Zero; landed = true; }
+                if (vel.Length() < 0.1f) { vel = Vector2.Zero; landed = true; landedLoc = closestBody.Loc - loc; }
                 vel /= 1.5f;
-                loc += (difference.Length() - planet.Radius - 10f / cam.Zoom) * difference / difference.Length();
+                loc += (difference.Length() - planet.Radius - 10f) * difference / difference.Length();
             }
         }
 
