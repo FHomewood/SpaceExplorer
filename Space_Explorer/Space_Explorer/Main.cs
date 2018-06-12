@@ -40,10 +40,9 @@ namespace Space_Explorer
             cam = new Camera(GraphicsDevice.Viewport);
             screenH = graphics.PreferredBackBufferHeight;
             screenW = graphics.PreferredBackBufferWidth;
-            shipList.Add(new Ship(new Vector2(0,-700),screenW,screenH));
+            shipList.Add(new Ship(new Vector2(0, -700), screenW, screenH));
             oldK = Keyboard.GetState();
             oldM = Mouse.GetState();
-
             Random rand = new Random();
             for (int i = 0; i < 50; i++)
             {
@@ -95,8 +94,10 @@ namespace Space_Explorer
             fontDebug = Content.Load<SpriteFont>("Debug");
             fontBoldArial = Content.Load<SpriteFont>("BoldArial");
         }
+
         protected override void UnloadContent()
         {  }
+
         protected override void Update(GameTime gameTime)
         {
             newK = Keyboard.GetState();
